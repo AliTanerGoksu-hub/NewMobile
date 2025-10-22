@@ -26,23 +26,23 @@
         <MudGrid Spacing="3" Justify="Justify.Center">
             
             <!-- Cari İşlemler Kartı -->
-            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-1">
+            <MudItem xs="12" sm="6" md="4" Class="fade-in fade-in-delay-1">
                 <MudCard Class="card-modern hover-lift ripple" 
                         @onclick="@(() => Navigation.NavigateTo("/bp"))"
                         Style="cursor: pointer; border-radius: 20px; height: 100%;">
                     <MudCardContent Style="padding: 24px;">
                         <div class="d-flex flex-column align-center text-center">
-                            <div class="icon-container gradient-primary icon-pulse">
-                                <MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                            <div class="icon-container gradient-primary">
+                                <MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Surface" Size="Size.Large" Style="font-size: 48px; color: white !important;" />
                             </div>
-                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px; margin-top: 8px;">
                                 Cari İşlemler
                             </MudText>
                             <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
                                 Müşteri ve tedarikçi yönetimi
                             </MudText>
                             <div class="badge-modern badge-info mt-3">
-                                <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" Class="mr-1" />
+                                <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" Class="mr-1" Style="color: #0c5460 !important;" />
                                 Aktif
                             </div>
                         </div>
@@ -51,23 +51,23 @@
             </MudItem>
 
             <!-- Stok Yönetimi Kartı -->
-            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-2">
+            <MudItem xs="12" sm="6" md="4" Class="fade-in fade-in-delay-2">
                 <MudCard Class="card-modern hover-lift ripple" 
                         @onclick="@(() => Navigation.NavigateTo("/stocks"))"
                         Style="cursor: pointer; border-radius: 20px; height: 100%;">
                     <MudCardContent Style="padding: 24px;">
                         <div class="d-flex flex-column align-center text-center">
                             <div class="icon-container gradient-success">
-                                <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                                <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Surface" Size="Size.Large" Style="font-size: 48px; color: white !important;" />
                             </div>
-                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px; margin-top: 8px;">
                                 Stok Yönetimi
                             </MudText>
                             <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
                                 Ürün ve stok takibi
                             </MudText>
                             <div class="badge-modern badge-success mt-3">
-                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Small" Class="mr-1" />
+                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Small" Class="mr-1" Style="color: #155724 !important;" />
                                 Güncel
                             </div>
                         </div>
@@ -76,23 +76,23 @@
             </MudItem>
 
             <!-- Katalog Kartı -->
-            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-3">
+            <MudItem xs="12" sm="6" md="4" Class="fade-in fade-in-delay-3">
                 <MudCard Class="card-modern hover-lift ripple" 
                         @onclick="@(() => Navigation.NavigateTo("/catalog"))"
                         Style="cursor: pointer; border-radius: 20px; height: 100%;">
                     <MudCardContent Style="padding: 24px;">
                         <div class="d-flex flex-column align-center text-center">
                             <div class="icon-container gradient-warning">
-                                <MudIcon Icon="@Icons.Material.Filled.MenuBook" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                                <MudIcon Icon="@Icons.Material.Filled.MenuBook" Color="Color.Surface" Size="Size.Large" Style="font-size: 48px; color: white !important;" />
                             </div>
-                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px; margin-top: 8px;">
                                 Katalog
                             </MudText>
                             <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
                                 Ürün kataloğunu incele
                             </MudText>
                             <div class="badge-modern badge-warning mt-3">
-                                <MudIcon Icon="@Icons.Material.Filled.RemoveRedEye" Size="Size.Small" Class="mr-1" />
+                                <MudIcon Icon="@Icons.Material.Filled.RemoveRedEye" Size="Size.Small" Class="mr-1" Style="color: #856404 !important;" />
                                 Görüntüle
                             </div>
                         </div>
