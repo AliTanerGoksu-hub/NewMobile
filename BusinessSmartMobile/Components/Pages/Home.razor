@@ -5,24 +5,26 @@
 
 <div style="background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); min-height: 100vh; padding-bottom: 32px;">
     
-    <!-- Header Section -->
-    <div class="gradient-primary" style="padding: 32px 16px; border-radius: 0 0 32px 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <!-- Header Section with Animation -->
+    <div class="page-header fade-in-down">
         <MudContainer MaxWidth="MaxWidth.Large">
-            <div class="d-flex justify-space-between align-center">
-                <div>
-                    <MudText Typo="Typo.h5" Style="color: white; font-weight: 600; margin-bottom: 4px;">
+            <div class="d-flex justify-space-between align-center page-header-content">
+                <div class="fade-in-left delay-1">
+                    <MudText Typo="Typo.h5" Class="page-header-title">
                         İşlem Menüsü
                     </MudText>
-                    <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    <MudText Typo="Typo.body2" Class="page-header-subtitle">
                         Yapmak istediğiniz işlemi seçin
                     </MudText>
                 </div>
-                <span class="status-dot status-online"></span>
+                <div class="fade-in-right delay-2">
+                    <span class="status-indicator status-online"></span>
+                </div>
             </div>
         </MudContainer>
     </div>
 
-    <MudContainer MaxWidth="MaxWidth.Large" Style="margin-top: -16px;">
+    <MudContainer MaxWidth="MaxWidth.Large" Style="margin-top: 8px;">
         <MudGrid Spacing="3" Justify="Justify.Center">
             
             <!-- Cari İşlemler Kartı -->
