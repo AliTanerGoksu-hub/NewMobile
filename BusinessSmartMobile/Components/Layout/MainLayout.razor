@@ -1,29 +1,75 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager Navigation
 
-
-
-<MudBlazor.MudThemeProvider />
+<MudBlazor.MudThemeProvider Theme="@_theme" />
 <MudDialogProvider />
-<MudSnackbarProvider MaxDisplayedSnackbars="3" Position="SnackbarPosition.TopRight" PreventDuplicates="true" />
+<MudSnackbarProvider MaxDisplayedSnackbars="3" 
+                     Position="SnackbarPosition.TopRight" 
+                     PreventDuplicates="true"
+                     NewestOnTop="true" />
 
+<link href="css/animations.css" rel="stylesheet" />
+<link href="css/page-styles.css" rel="stylesheet" />
 
-<MudLayout Style="height:100vh;">
-    <MudAppBar Elevation="0" Style="height:6%; min-height:40px;">
-        <MudIconButton Icon="@Icons.Material.Filled.Home" Color="Color.Inherit" Edge="Edge.Start"
-                       @onclick="@(() => Navigation.NavigateTo("/home"))" />
+<MudLayout Style="height:100vh; background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);">
+    <MudAppBar Elevation="2" Class="fade-in-down" Style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); backdrop-filter: blur(10px);">
+        <MudIconButton Icon="@Icons.Material.Filled.Home" 
+                       Color="Color.Inherit" 
+                       Edge="Edge.Start"
+                       Class="hover-scale btn-press"
+                       @onclick="@(() => Navigation.NavigateTo("/home"))" 
+                       Style="border-radius: 12px;" />
+        
+        <MudText Typo="Typo.h6" Style="color: white; font-weight: 600; margin-left: 8px;">
+            BusinessSmart
+        </MudText>
+        
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.Chrome" Color="Color.Inherit"
-                       Link="https://www.barkodyazilim.com.tr/" Target="_blank" />
+        
+        <MudIconButton Icon="@Icons.Custom.Brands.Chrome" 
+                       Color="Color.Inherit"
+                       Class="hover-scale btn-press"
+                       Link="https://www.barkodyazilim.com.tr/" 
+                       Target="_blank"
+                       Style="border-radius: 12px;" />
     </MudAppBar>
 
-    <MudMainContent>
-        @Body
+    <MudMainContent Style="padding: 0; overflow-x: hidden;">
+        <div class="fade-in-up" style="min-height: calc(100vh - 64px);">
+            @Body
+        </div>
     </MudMainContent>
 </MudLayout>
 
 @code {
     bool _drawerOpen = true;
+    
+    private MudTheme _theme = new MudTheme()
+    {
+        Palette = new PaletteLight()
+        {
+            Primary = "#667eea",
+            Secondary = "#764ba2",
+            Success = "#38ef7d",
+            Info = "#00f2fe",
+            Warning = "#f5576c",
+            Error = "#ff6b6b",
+            AppbarBackground = "#667eea",
+            Background = "#f8f9fa",
+            Surface = "#ffffff",
+            DrawerBackground = "#ffffff",
+            DrawerText = "rgba(0,0,0, 0.7)",
+            TextPrimary = "#2c3e50",
+            TextSecondary = "#6c757d"
+        },
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" }
+            }
+        }
+    };
 
     void DrawerToggle()
     {
