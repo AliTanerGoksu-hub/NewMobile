@@ -224,6 +224,74 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Loading States - Enhanced */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 16px;
+    gap: 16px;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+/* Error Container */
+.error-container {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.error-icon {
+    color: #f56565;
+    font-size: 24px;
+}
+
+.error-content {
+    flex: 1;
+}
+
+.error-title {
+    color: #c53030;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.error-message {
+    color: #742a2a;
+    font-size: 0.875rem;
+}
+
+/* Status Indicator Enhanced */
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 /* Mobile Optimizations */
 @media (max-width: 600px) {
     .icon-container {
@@ -235,15 +303,36 @@ html {
         transform: translateY(-2px);
     }
     
-    /* Reduce animations on mobile for performance */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-        }
+    .page-header {
+        padding: 20px 12px;
+        border-radius: 0 0 20px 20px;
+    }
+    
+    .page-header-title {
+        font-size: 1.25rem;
+    }
+    
+    .table-container {
+        margin: 8px;
+        border-radius: 12px;
+    }
+}
+
+/* Tablet Optimization */
+@media (min-width: 601px) and (max-width: 960px) {
+    .page-header {
+        padding: 22px 14px;
+    }
+}
+
+/* Reduce animations on mobile for performance */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
 
