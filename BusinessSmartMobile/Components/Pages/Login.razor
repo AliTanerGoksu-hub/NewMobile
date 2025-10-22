@@ -1,0 +1,169 @@
+﻿@page "/"
+@layout Layout.EmptyLayout
+@inject AuthService AuthService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject DeviceService Device
+@inject NavigationManager Navigation
+
+
+
+<div class="login-container" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 20px;">
+    
+    @if (_loading)
+    {
+        <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
+    }
+
+    <MudPaper Elevation="8" Class="card-modern fade-in" Style="max-width:400px; width: 100%; padding: 40px; border-radius: 24px; position: relative;">
+        
+        <!-- Settings Button -->
+        <div style="position: absolute; top: 16px; right: 16px;">
+            <MudIconButton Icon="@Icons.Material.Filled.Settings" 
+                          Color="Color.Default" 
+                          Size="Size.Small"
+                          Class="smooth-transition"
+                          @onclick="@(() => Navigation.NavigateTo("/settings"))" />
+        </div>
+
+        <!-- Logo/Title Area -->
+        <div class="text-center mb-6">
+            <div class="icon-container gradient-primary mx-auto" style="width: 80px; height: 80px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                <MudIcon Icon="@Icons.Material.Filled.Business" Color="Color.Surface" Size="Size.Large" Style="font-size: 48px;" />
+            </div>
+            <MudText Typo="Typo.h4" Class="gradient-text" Style="font-weight: 700; margin-bottom: 8px;">
+                BusinessSmart
+            </MudText>
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                Hoş geldiniz! Lütfen giriş yapın
+            </MudText>
+        </div>
+
+        @if (_error)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4 fade-in" Style="border-radius: 12px;">
+                @_errorMessage
+            </MudAlert>
+        }
+
+        <!-- Login Form -->
+        <div style="margin-top: 32px;">
+            <MudSelect @bind-Value="UserName" 
+                      Label="Kullanıcı Seçin" 
+                      Variant="Variant.Outlined"
+                      Margin="Margin.Dense"
+                      Class="mb-4 smooth-transition"
+                      Style="border-radius: 12px;">
+                @foreach (var dp in list)
+                {
+                    <MudSelectItem Value="@dp.PERSONELKODU">
+                        <div class="d-flex align-center">
+                            <MudIcon Icon="@Icons.Material.Filled.Person" Size="Size.Small" Class="mr-2" />
+                            @dp.PERSONELADI
+                        </div>
+                    </MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudTextField @bind-Value="Password" 
+                         Label="Şifre" 
+                         InputType="InputType.Password" 
+                         Required="true"
+                         Variant="Variant.Outlined"
+                         Margin="Margin.Dense"
+                         Class="smooth-transition modern-input"
+                         Adornment="Adornment.Start"
+                         AdornmentIcon="@Icons.Material.Filled.Lock"
+                         Style="border-radius: 12px;" />
+
+            <MudButton OnClick="LogControl" 
+                      Color="Color.Primary" 
+                      Variant="Variant.Filled" 
+                      FullWidth="true"
+                      Size="Size.Large"
+                      Class="mt-6 btn-press ripple"
+                      Disabled="@(!IsValid)"
+                      Style="border-radius: 12px; height: 48px; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);">
+                @if (_loading)
+                {
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                }
+                else
+                {
+                    <span>Giriş Yap</span>
+                }
+            </MudButton>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6">
+            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                BusinessSmartMobile v1.0
+            </MudText>
+        </div>
+    </MudPaper>
+</div>
+@code {
+    private string UserName { get; set; }
+    private string Password { get; set; }
+    private string ErrorMessage { get; set; }
+    private string _errorMessage = "";
+    private string apiMessage = string.Empty;
+    private bool _loading = false;
+    private bool _error = false;
+    Auth auth = new Auth();
+    List<Auth> list = new List<Auth>();
+    private bool IsValid => !string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password);
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        MobileUsers();
+    }
+    private async void MobileUsers()
+    {
+        (list, apiMessage) = await AuthService.GetMobileUsers();
+    }
+    private async void LogControl()
+    {
+
+        //  string deviceId = Device.GetIdentifier();
+
+        (auth, apiMessage) = await AuthService.Login(UserName, Password);
+
+        try
+        {
+            _loading = true;
+            _error = false;
+
+            if (!string.IsNullOrEmpty(apiMessage))
+            {
+                _error = true;
+                _errorMessage = apiMessage;  // Hata mesajını buraya atıyoruz
+            }
+            else if (auth == null)
+            {
+                _error = true;
+                _errorMessage = "Girilen Filtreye Ait Veri Bulunamadı.";
+            }
+            else
+            {
+                Navigation.NavigateTo("/home");
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = true;
+            _errorMessage = $"Hata oluştu: {ex.Message}";
+        }
+        finally
+        {
+            _loading = false;
+            StateHasChanged();
+        }
+
+    }
+
+
+
+}

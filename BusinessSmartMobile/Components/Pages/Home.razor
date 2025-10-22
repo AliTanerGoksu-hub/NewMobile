@@ -1,0 +1,198 @@
+﻿@page "/home"
+@inject NavigationManager Navigation
+@inject IDialogService DialogService
+@inject AuthService AuthService
+
+<div style="background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); min-height: 100vh; padding-bottom: 32px;">
+    
+    <!-- Header Section -->
+    <div class="gradient-primary" style="padding: 32px 16px; border-radius: 0 0 32px 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <MudContainer MaxWidth="MaxWidth.Large">
+            <div class="d-flex justify-space-between align-center">
+                <div>
+                    <MudText Typo="Typo.h5" Style="color: white; font-weight: 600; margin-bottom: 4px;">
+                        İşlem Menüsü
+                    </MudText>
+                    <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                        Yapmak istediğiniz işlemi seçin
+                    </MudText>
+                </div>
+                <span class="status-dot status-online"></span>
+            </div>
+        </MudContainer>
+    </div>
+
+    <MudContainer MaxWidth="MaxWidth.Large" Style="margin-top: -16px;">
+        <MudGrid Spacing="3" Justify="Justify.Center">
+            
+            <!-- Cari İşlemler Kartı -->
+            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-1">
+                <MudCard Class="card-modern hover-lift ripple" 
+                        @onclick="@(() => Navigation.NavigateTo("/bp"))"
+                        Style="cursor: pointer; border-radius: 20px; height: 100%;">
+                    <MudCardContent Style="padding: 24px;">
+                        <div class="d-flex flex-column align-center text-center">
+                            <div class="icon-container gradient-primary icon-pulse">
+                                <MudIcon Icon="@Icons.Material.Filled.People" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                            </div>
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                                Cari İşlemler
+                            </MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
+                                Müşteri ve tedarikçi yönetimi
+                            </MudText>
+                            <div class="badge-modern badge-info mt-3">
+                                <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Small" Class="mr-1" />
+                                Aktif
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+
+            <!-- Stok Yönetimi Kartı -->
+            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-2">
+                <MudCard Class="card-modern hover-lift ripple" 
+                        @onclick="@(() => Navigation.NavigateTo("/stocks"))"
+                        Style="cursor: pointer; border-radius: 20px; height: 100%;">
+                    <MudCardContent Style="padding: 24px;">
+                        <div class="d-flex flex-column align-center text-center">
+                            <div class="icon-container gradient-success">
+                                <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                            </div>
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                                Stok Yönetimi
+                            </MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
+                                Ürün ve stok takibi
+                            </MudText>
+                            <div class="badge-modern badge-success mt-3">
+                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Small" Class="mr-1" />
+                                Güncel
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+
+            <!-- Katalog Kartı -->
+            <MudItem xs="12" sm="6" md="4" Class="fade-in-delay-3">
+                <MudCard Class="card-modern hover-lift ripple" 
+                        @onclick="@(() => Navigation.NavigateTo("/catalog"))"
+                        Style="cursor: pointer; border-radius: 20px; height: 100%;">
+                    <MudCardContent Style="padding: 24px;">
+                        <div class="d-flex flex-column align-center text-center">
+                            <div class="icon-container gradient-warning">
+                                <MudIcon Icon="@Icons.Material.Filled.MenuBook" Color="Color.Surface" Size="Size.Large" Style="font-size: 40px;" />
+                            </div>
+                            <MudText Typo="Typo.h6" Style="font-weight: 600; margin-bottom: 8px;">
+                                Katalog
+                            </MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Style="line-height: 1.5;">
+                                Ürün kataloğunu incele
+                            </MudText>
+                            <div class="badge-modern badge-warning mt-3">
+                                <MudIcon Icon="@Icons.Material.Filled.RemoveRedEye" Size="Size.Small" Class="mr-1" />
+                                Görüntüle
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        <!-- Sipariş Kartı -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(() => Navigation.NavigateTo("/orders"))">
+                <MudCardContent Style="padding: 24px;">
+                    <div class="d-flex flex-column align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Error" Size="Size.Large" Style="width: 64px; height: 64px;" />
+                        <MudText Typo="Typo.h5" Class="mt-4">Siparişler</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                            Sipariş yönetimi ve takibi
+                        </MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <!-- Rapor Kartı -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(OpenDialog)">
+                <MudCardContent Style="padding: 24px;">
+                    <div class="d-flex flex-column align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Assessment" Color="Color.Success" Size="Size.Large" Style="width: 64px; height: 64px;" />
+                        <MudText Typo="Typo.h5" Class="mt-4">Raporlar</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                            Analiz ve raporlama
+                        </MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <!-- Ayarlar Kartı -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(() => Navigation.NavigateTo("/getPrice"))">
+                <MudCardContent Style="padding: 24px;">
+                    <div class="d-flex flex-column align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.QrCodeScanner" Color="Color.Info" Size="Size.Large" Style="width: 64px; height: 64px;" />
+                        <MudText Typo="Typo.h5" Class="mt-4">Fiyat Gör</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                            Hızlı Okutma ile Ürün Bilgilerine Ulaş
+                        </MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <!-- Fatura Kartı -->
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(() => Navigation.NavigateTo("/payment"))">
+                <MudCardContent Style="padding: 24px;">
+                    <div class="d-flex flex-column align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.CreditCard" Color="Color.Warning" Size="Size.Large" Style="width: 64px; height: 64px;" />
+                        <MudText Typo="Typo.h5" Class="mt-4">Tahsilat</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                            Kredi Kartı ile İşlemler
+                        </MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        <!--Yetkilendirme Sayfası -->
+        @if (AuthService.Auth.PERSONELKODU=="Admin")
+        {
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(() => Navigation.NavigateTo("/authorization"))">
+                <MudCardContent Style="padding: 24px;">
+                    <div class="d-flex flex-column align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.LockPerson" Color="Color.Surface" Size="Size.Large" Style="width: 64px; height: 64px;" />
+                        <MudText Typo="Typo.h5" Class="mt-4">Yetkilendirme</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-2">
+                           Rapor Yetkilendirmeleri
+                        </MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+        }
+    </MudGrid>
+</MudContainer>
+@code {
+    private async Task OpenDialog()
+    {
+        var options = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true };
+        await DialogService.ShowAsync<BusinessSmartMobile.Components.Custom_Components.ReportsDialog>("Rapor Seç", options);
+    }
+}
+<style>
+    .mud-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+    }
+
+        .mud-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+</style>
