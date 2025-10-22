@@ -1,0 +1,120 @@
+/* 📊 Modern Table Enhancements */
+
+/* Modern Table Wrapper */
+.mud-table {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* Table Header Styling */
+.mud-table-head {
+    background: linear-gradient(to right, #f8f9fa, #ffffff) !important;
+}
+
+.mud-table-head .mud-table-cell {
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    font-size: 0.875rem !important;
+    padding: 16px 12px !important;
+    border-bottom: 2px solid #e9ecef !important;
+}
+
+/* Table Row Animations */
+.mud-table-row {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.mud-table-row:hover {
+    background: rgba(102, 126, 234, 0.05) !important;
+    transform: scale(1.001);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Table Cell Styling */
+.mud-table-cell {
+    padding: 12px !important;
+    font-size: 0.875rem !important;
+    color: #495057 !important;
+}
+
+/* Striped Rows Enhancement */
+.mud-table-striped .mud-table-row:nth-of-type(even) {
+    background: rgba(248, 249, 250, 0.5) !important;
+}
+
+/* Icon Buttons in Tables */
+.mud-table .mud-icon-button {
+    transition: all 0.2s ease !important;
+    border-radius: 8px !important;
+}
+
+.mud-table .mud-icon-button:hover {
+    transform: scale(1.1);
+    background: rgba(102, 126, 234, 0.1) !important;
+}
+
+/* Table Pagination */
+.mud-table-pagination {
+    border-top: 1px solid #e9ecef !important;
+    padding: 12px 16px !important;
+    background: #f8f9fa !important;
+}
+
+.mud-table-pagination .mud-table-pagination-caption {
+    color: #6c757d !important;
+    font-size: 0.875rem !important;
+}
+
+/* Table Toolbar Enhancement */
+.mud-toolbar {
+    background: transparent !important;
+    padding: 16px !important;
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+/* Empty Table State */
+.mud-table-empty-row {
+    text-align: center !important;
+    padding: 48px !important;
+    color: #6c757d !important;
+}
+
+/* Loading in Tables */
+.mud-table-loading {
+    background: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+/* Responsive Table */
+@media (max-width: 600px) {
+    .mud-table-cell {
+        padding: 8px 6px !important;
+        font-size: 0.8125rem !important;
+    }
+    
+    .mud-table-head .mud-table-cell {
+        padding: 12px 8px !important;
+        font-size: 0.8125rem !important;
+    }
+}
+
+/* Fixed Header Shadow */
+.mud-table-container.mud-table-fixed-header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Sort Label Styling */
+.mud-table-sort-label {
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+}
+
+.mud-table-sort-label:hover {
+    color: #667eea !important;
+}
+
+/* Active Sort */
+.mud-table-sort-label.mud-direction-asc,
+.mud-table-sort-label.mud-direction-desc {
+    color: #667eea !important;
+}
