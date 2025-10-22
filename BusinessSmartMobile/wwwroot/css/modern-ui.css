@@ -49,12 +49,13 @@
 }
 
 .fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.5s ease-out;
+    animation-fill-mode: forwards;
 }
 
-.fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
-.fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards; }
-.fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
+.fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
 
 /* Glass morphism effect - Trendy & Light */
 .glass-card {
