@@ -2,15 +2,44 @@
 @inject IDialogService DialogService
 @inject PaymentService PaymentService
 @inject NavigationManager Navigation
+
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="fade-in-left delay-1">
+            <MudText Typo="Typo.h5" Class="page-header-title">
+                <MudIcon Icon="@Icons.Material.Filled.CreditCard" Style="vertical-align: middle; margin-right: 8px;" />
+                Tahsilat
+            </MudText>
+            <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                Kredi kartı ile ödeme işlemleri
+            </MudText>
+        </div>
+    </div>
+</div>
+
 @if (_loading)
 {
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">İşlem yapılıyor...</MudText>
+    </div>
 }
+
 @if (_error)
 {
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
 }
-<MudCard Class="pa-4">
+
+@if (!_loading)
+{
+<div class="modern-card fade-in-up delay-1" style="margin: 16px;">
     <MudForm>
         <MudGrid Spacing="1">
             <MudItem xs="5">
