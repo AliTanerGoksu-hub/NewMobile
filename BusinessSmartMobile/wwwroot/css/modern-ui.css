@@ -1,20 +1,41 @@
 /* 🎨 Modern UI - Performanslı Görsellik */
+/* GPU-Accelerated Animations for 60fps Performance */
 
-/* Gradient Backgrounds */
+/* Gradient Backgrounds - Enhanced */
 .gradient-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
 }
 
 .gradient-success {
     background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    position: relative;
+    overflow: hidden;
 }
 
 .gradient-warning {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    position: relative;
+    overflow: hidden;
 }
 
 .gradient-info {
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-dark {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    position: relative;
+    overflow: hidden;
 }
 
 /* Card Hover Effects - GPU Accelerated */
