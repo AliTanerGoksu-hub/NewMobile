@@ -3,37 +3,78 @@
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @inject IJSRuntime JSRuntime
-@*<MudContainer Class="mx-0 mt-4">*@
+
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="d-flex justify-space-between align-center">
+            <div class="fade-in-left delay-1">
+                <MudText Typo="Typo.h5" Class="page-header-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Inventory" Style="vertical-align: middle; margin-right: 8px;" />
+                    Stok Yönetimi
+                </MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    Ürün ve stok takibi
+                </MudText>
+            </div>
+            <div class="fade-in-right delay-2" style="display: flex; gap: 8px;">
+                <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" 
+                               Color="Color.Surface" 
+                               Class="hover-scale btn-press"
+                               Style="background: rgba(255,255,255,0.2); border-radius: 12px;"
+                               @onclick="@(() => OpenFilterDialog())" 
+                               aria-label="Filtre" />
+                <MudIconButton Icon="@Icons.Material.Filled.QrCodeScanner" 
+                               Color="Color.Surface" 
+                               Class="hover-scale btn-press"
+                               Style="background: rgba(255,255,255,0.2); border-radius: 12px;"
+                               @onclick="OpenBarcodeScanner" 
+                               aria-label="Barkod Okut" />
+            </div>
+        </div>
+    </div>
+</div>
+
 @if (_loading)
 {
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">Stoklar yükleniyor...</MudText>
+    </div>
 }
 
 @if (_error)
 {
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
 }
 
-<MudTable Class="mx-2"
-          Breakpoint="Breakpoint.None"
-          Items="list" Dense="true"
+@if (!_loading && !_error)
+{
+<div class="table-container fade-in-up delay-1">
+<MudTable Breakpoint="Breakpoint.None"
+          Items="list" 
+          Dense="true"
           Hover="true"
           SortLabel="Sort By"
           RowsPerPage="25"
           Striped="true"
-          Bordered="true"
+          Bordered="false"
           FixedHeader="true"
           FixedFooter="true"
-          Style="height:90vh;overflow-y:auto">
+          Elevation="0"
+          Style="height:calc(100vh - 200px);overflow-y:auto">
     <ToolBarContent>
         <div style="flex: 1;">
-            <MudText Typo="Typo.h6">Stok Listesi</MudText> <!-- Sola hizalanmış başlık -->
-        </div>
-
-        <div>
-
-            <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" @onclick="@(() => OpenFilterDialog())" aria-label="Filtre"></MudIconButton> <!-- Sağa hizalanmış buton -->
-            <MudIconButton Icon="@Icons.Material.Filled.QrCodeScanner" @onclick="OpenBarcodeScanner" aria-label="Filtre"></MudIconButton> <!-- Sağa hizalanmış buton -->
+            <MudText Typo="Typo.h6" Style="color: #2c3e50; font-weight: 600;">
+                <MudIcon Icon="@Icons.Material.Filled.List" Size="Size.Small" Style="vertical-align: middle;" />
+                Stok Listesi
+            </MudText>
         </div>
     </ToolBarContent>
     <HeaderContent>
