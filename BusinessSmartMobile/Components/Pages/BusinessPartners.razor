@@ -4,34 +4,72 @@
 @inject IDialogService DialogService
 @inject AuthService _authService
 
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="d-flex justify-space-between align-center">
+            <div class="fade-in-left delay-1">
+                <MudText Typo="Typo.h5" Class="page-header-title">
+                    <MudIcon Icon="@Icons.Material.Filled.People" Style="vertical-align: middle; margin-right: 8px;" />
+                    Cari İşlemler
+                </MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    Müşteri ve tedarikçi listesi
+                </MudText>
+            </div>
+            <div class="fade-in-right delay-2">
+                <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" 
+                               Color="Color.Surface" 
+                               Class="hover-scale btn-press"
+                               Style="background: rgba(255,255,255,0.2); border-radius: 12px;"
+                               @onclick="OpenFilterDialog" 
+                               aria-label="Filtre" />
+            </div>
+        </div>
+    </div>
+</div>
+
 @if (_loading)
 {
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">Veriler yükleniyor...</MudText>
+    </div>
 }
 
 @if (_error)
 {
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
 }
 
-<MudTable Class="mx-2"
-          Breakpoint="Breakpoint.None"
-          Items="liste" Dense="true"
+@if (!_loading && !_error)
+{
+<div class="table-container fade-in-up delay-1">
+<MudTable Breakpoint="Breakpoint.None"
+          Items="liste" 
+          Dense="true"
           Hover="true"
           SortLabel="Sort By"
           RowsPerPage="25"
           Striped="true"
-          Bordered="true"
+          Bordered="false"
           FixedHeader="true"
           FixedFooter="true"
-                    RowStyleFunc="RowStyleFunc"
-          Style="height:90vh;overflow-y:auto">
+          RowStyleFunc="RowStyleFunc"
+          Elevation="0"
+          Style="height:calc(100vh - 200px);overflow-y:auto">
     <ToolBarContent>
         <div style="flex: 1;">
-            <MudText Typo="Typo.h6">Muhatap Listesi</MudText>
-        </div>
-        <div>
-            <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" @onclick="OpenFilterDialog" aria-label="Filtre"></MudIconButton>
+            <MudText Typo="Typo.h6" Style="color: #2c3e50; font-weight: 600;">
+                <MudIcon Icon="@Icons.Material.Filled.List" Size="Size.Small" Style="vertical-align: middle;" />
+                Muhatap Listesi
+            </MudText>
         </div>
     </ToolBarContent>
     <HeaderContent>
