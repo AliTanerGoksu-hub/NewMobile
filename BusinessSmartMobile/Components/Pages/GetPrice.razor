@@ -5,11 +5,32 @@
 @inject BusinessPartnerService BusinessPartnerService
 @inject AuthService _authService
 
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="fade-in-left delay-1">
+            <MudText Typo="Typo.h5" Class="page-header-title">
+                <MudIcon Icon="@Icons.Material.Filled.QrCodeScanner" Style="vertical-align: middle; margin-right: 8px;" />
+                Fiyat Görüntüle
+            </MudText>
+            <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                Hızlı okutma ile ürün bilgilerine ulaşın
+            </MudText>
+        </div>
+    </div>
+</div>
+
 @if (!string.IsNullOrEmpty(_errorMessage))
 {
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
 }
-<MudContainer>
+<MudContainer Class="fade-in-up delay-1">
     <MudStack Spacing="1">
         <MudStack Row Spacing="2">
             <MudTextField @bind-Value="Barcode"
