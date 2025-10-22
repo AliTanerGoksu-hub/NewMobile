@@ -1,0 +1,71 @@
+/* ⚡ Performance Optimizations */
+
+/* GPU Acceleration */
+.gpu-boost {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Optimize Images */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Contain Paint - Performance */
+.contain-paint {
+    contain: paint;
+}
+
+.contain-layout {
+    contain: layout;
+}
+
+.contain-strict {
+    contain: strict;
+}
+
+/* Will Change - Use Sparingly */
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-opacity {
+    will-change: opacity;
+}
+
+/* Remove Will Change After Animation */
+.animation-complete {
+    will-change: auto;
+}
+
+/* Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Touch Optimizations */
+button, a, .clickable {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Prevent Text Selection on UI Elements */
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
