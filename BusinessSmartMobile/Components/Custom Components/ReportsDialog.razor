@@ -95,6 +95,36 @@
         MudDialog.Close();
     }
 
+    private string GetGradientForReport(string reportName)
+    {
+        return reportName switch
+        {
+            "Ödenecek Çek" => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            "Satış Analizi" => "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+            "Satış Ciroları" => "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            "Satış Ciroları Satıcılar" => "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+            "Satış Ciroları Sınıflandırmaları" => "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+            "Satış Kalan Raporu" => "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+            "Teslimat Rapor" => "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+            _ => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        };
+    }
+
+    private string GetReportDescription(string reportName)
+    {
+        return reportName switch
+        {
+            "Ödenecek Çek" => "Ödeme planları ve çek takibi",
+            "Satış Analizi" => "Detaylı satış performansı",
+            "Satış Ciroları" => "Toplam satış cirosları",
+            "Satış Ciroları Satıcılar" => "Satıcı bazlı cirolar",
+            "Satış Ciroları Sınıflandırmaları" => "Kategori bazlı cirolar",
+            "Satış Kalan Raporu" => "Açık siparişler",
+            "Teslimat Rapor" => "Teslimat durumu",
+            _ => "Rapor detayları"
+        };
+    }
+
     private record ReportItem(string Ad, string Url, string Icon);
 }
 
