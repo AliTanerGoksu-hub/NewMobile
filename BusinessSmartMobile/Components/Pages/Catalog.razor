@@ -115,20 +115,23 @@
     {
         <MudAlert Severity="Severity.Error" Class="my-4">@message</MudAlert>
     }
-
-    <!-- TAMAMLA BUTONU - SABİT POZİSYON (Sağ Alt) -->
-    <div style="position:fixed; right:20px; bottom:20px; z-index:2000;">
-        <MudFab Icon="@Icons.Material.Filled.ShoppingCart"
-                Color="Color.Success"
-                Size="Size.Large"
-                Label="Tamamla"
-                Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
-                       box-shadow: 0 8px 24px rgba(17, 153, 142, 0.6);
-                       color: white;
-                       font-weight: 600;"
-                OnClick="@(() => GoToOrders())" />
-    </div>
 </MudContainer>
+
+<!-- TAMAMLA BUTONU - MudContainer DIŞINDA - SABİT POZİSYON -->
+<div style="position: fixed !important; 
+            right: 20px !important; 
+            bottom: 20px !important; 
+            z-index: 9999 !important;">
+    <MudFab Icon="@Icons.Material.Filled.ShoppingCart"
+            Color="Color.Success"
+            Size="Size.Large"
+            Label="Tamamla"
+            Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important; 
+                   box-shadow: 0 8px 24px rgba(17, 153, 142, 0.6) !important;
+                   color: white !important;
+                   font-weight: 600 !important;"
+            OnClick="@(() => GoToOrders())" />
+</div>
 
 @code {
     private List<Stock> catalogList = new();
