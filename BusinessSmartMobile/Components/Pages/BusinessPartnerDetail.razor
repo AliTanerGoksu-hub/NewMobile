@@ -11,7 +11,7 @@
                            Color="Color.Surface" 
                            Size="Size.Medium"
                            Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #667eea;"
-                           OnClick="@(() => Navigation.NavigateTo(\"/bp\"))" 
+                           OnClick="@GoBack" 
                            aria-label="Geri" />
             <div>
                 <MudText Typo="Typo.h5" Class="page-header-title">
@@ -40,7 +40,7 @@
         <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
         <div class="error-content">
             <div class="error-title">Hata Oluştu</div>
-            <div class="error-message">@(_errorMessage == "Bakiye bilgileri alınamadı." ? "Hareket bulunamadı." : _errorMessage)</div>
+            <div class="error-message">@GetErrorMessage()</div>
         </div>
     </div>
 }
@@ -68,5 +68,19 @@
             _errorMessage = ex.Message;
             _loading = false;
         }
+    }
+    
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/bp");
+    }
+    
+    private string GetErrorMessage()
+    {
+        if (_errorMessage == "Bakiye bilgileri alınamadı.")
+        {
+            return "Hareket bulunamadı.";
+        }
+        return _errorMessage;
     }
 }
