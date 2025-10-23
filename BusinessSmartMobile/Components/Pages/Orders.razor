@@ -7,17 +7,25 @@
 @inject AuthService _authService
 
 <!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 0; padding-top: 80px;">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 0; padding-top: 64px;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
-            <div class="fade-in-left delay-1">
-                <MudText Typo="Typo.h5" Class="page-header-title">
-                    <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Style="vertical-align: middle; margin-right: 8px;" />
-                    Siparişler
-                </MudText>
-                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
-                    Sipariş yönetimi ve takibi
-                </MudText>
+            <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" 
+                               Color="Color.Surface" 
+                               Class="hover-scale btn-press"
+                               Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #f5576c;"
+                               @onclick="@(() => Navigation.NavigateTo("/home"))" 
+                               aria-label="Geri" />
+                <div>
+                    <MudText Typo="Typo.h5" Class="page-header-title">
+                        <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Style="vertical-align: middle; margin-right: 8px;" />
+                        Siparişler
+                    </MudText>
+                    <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                        Sipariş yönetimi ve takibi
+                    </MudText>
+                </div>
             </div>
             <div class="fade-in-right delay-2" style="display: flex; gap: 8px;">
                 <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" 
