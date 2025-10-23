@@ -75,14 +75,14 @@
                             </div>
                         </div>
                     </MudCardContent>
-                    <MudFab Icon="@Icons.Material.Filled.Add"
-                            Color="Color.Success"
-                            Size="Size.Small"
-                            Class="position-absolute hover-scale btn-press"
-                            Style="right:12px; bottom:12px; width:40px; height:40px; min-width:40px; min-height:40px; box-shadow: 0 4px 12px rgba(56, 239, 125, 0.4);"
-                            @onclick="@(() => AddToCart(item))"
-                            @onclick:stopPropagation="true">
-                    </MudFab>
+                    <div style="position: absolute; right: 12px; bottom: 12px;">
+                        <MudIconButton Icon="@Icons.Material.Filled.Add"
+                                       Color="Color.Success"
+                                       Size="Size.Small"
+                                       Class="hover-scale btn-press"
+                                       Style="width: 40px; height: 40px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border-radius: 50%; box-shadow: 0 4px 12px rgba(56, 239, 125, 0.4);"
+                                       OnClick="@(async () => await Task.Run(() => AddToCart(item)))" />
+                    </div>
                 </MudCard>
             </MudItem>
         }
