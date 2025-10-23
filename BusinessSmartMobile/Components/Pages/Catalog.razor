@@ -296,22 +296,5 @@
     }
 </style>
 
-<!-- Tamamla Butonu - ZORLA FIXED -->
-<div id="tamamla-fixed-btn" style="position: fixed !important; 
-                                    right: 20px !important; 
-                                    top: 50% !important;
-                                    transform: translateY(-50%) !important;
-                                    z-index: 999999 !important;
-                                    pointer-events: auto !important;">
-    <MudFab Color="Color.Error"
-            Icon="@Icons.Material.Filled.ShoppingCart"
-            Style="box-shadow: 0 12px 40px rgba(239, 68, 68, 0.9) !important; 
-                   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%) !important; 
-                   width: 70px !important; 
-                   height: 70px !important;
-                   color: white !important;
-                   border: 3px solid white !important;"
-            Size="Size.Large"
-            aria-label="Siparişi Tamamla"
-            OnClick="@(() => GoToOrders())" />
-</div>
+<!-- Eski floating buton kaldırıldı - Şimdi header'da Tamamla butonu var -->
+
