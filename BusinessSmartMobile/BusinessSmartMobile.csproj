@@ -53,14 +53,17 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
 		<Debugger>Xamarin</Debugger>
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-		<AndroidKeyStore>True</AndroidKeyStore>
-		<!-- GÜVENLİK: Şifreler environment variable'dan okunmalı -->
+		<!-- Store'a derleme yapmadığımız için signing devre dışı -->
+		<AndroidKeyStore>False</AndroidKeyStore>
+		<!-- GÜVENLİK: Store'a yayınlarken True yapın ve şifreleri environment variable'dan okuyun -->
 		<!-- Local development için: export ANDROID_KEYSTORE_PASS=your_password -->
+		<!--
 		<AndroidSigningKeyAlias>bsm</AndroidSigningKeyAlias>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' != ''">$(ANDROID_KEYSTORE_PASS)</AndroidSigningStorePass>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' == ''">123456</AndroidSigningStorePass>
 		<AndroidSigningKeyPass Condition="'$(ANDROID_KEY_PASS)' != ''">$(ANDROID_KEY_PASS)</AndroidSigningKeyPass>
 		<AndroidSigningKeyPass Condition="'$(ANDROID_KEY_PASS)' == ''">123456</AndroidSigningKeyPass>
+		-->
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
