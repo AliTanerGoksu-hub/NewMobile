@@ -19,19 +19,20 @@
 
 
         <!-- 🔦 Işık aç/kapa butonu -->
-        <Button Text="🚫"
+        <Button Text="💡 Işık"
              x:Name="torchButton"
              Clicked="TorchButton_Clicked"
-             BackgroundColor="Black"
+             BackgroundColor="#3B82F6"
              TextColor="White"
-             WidthRequest="80"
+             WidthRequest="100"
              HeightRequest="50"
-             FontSize="24"
+             FontSize="16"
+             FontAttributes="Bold"
              CornerRadius="25"
              HorizontalOptions="Start"
              VerticalOptions="End"
-             Margin="10"
-             Padding="0" />
+             Margin="20,0,0,20"
+             Shadow="{Shadow Brush=Black, Radius=10, Opacity=0.5}" />
 
         <Button Text="✖ Kapat"
              x:Name="closeButton"
