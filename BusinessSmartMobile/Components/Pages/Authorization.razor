@@ -1,26 +1,69 @@
 ﻿@page "/authorization"
 @inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin-top: 0; padding-top: 80px;">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="d-flex align-center" style="gap: 12px;">
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" 
+                           Color="Color.Surface" 
+                           Size="Size.Medium"
+                           Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #4facfe;"
+                           OnClick="@(() => Navigation.NavigateTo("/home"))" 
+                           aria-label="Geri" />
+            <div>
+                <MudText Typo="Typo.h5" Class="page-header-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Security" Style="vertical-align: middle; margin-right: 8px;" />
+                    Yetkilendirme
+                </MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    Kullanıcı rapor yetkileri
+                </MudText>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (_loading)
 {
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">Yükleniyor...</MudText>
+    </div>
 }
+
 @if (_error)
 {
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
 }
 
-<MudPaper Class="pa-4">
-    <MudText Typo="Typo.h6" Class="mb-4">Kullanıcı Rapor Yetkileri</MudText>
+<MudContainer Style="margin-top: 16px;" Class="fade-in-up delay-1">
+    <MudPaper Elevation="3" Style="padding: 24px; border-radius: 16px;">
+        <MudText Typo="Typo.h6" Style="color: #2c3e50; font-weight: 600; margin-bottom: 16px;">
+            <MudIcon Icon="@Icons.Material.Filled.People" Style="vertical-align: middle; margin-right: 8px;" />
+            Kullanıcı Seçimi
+        </MudText>
 
-    <!-- Kullanıcı Seçimi -->
-    <MudSelect T="string" Label="Kullanıcı Seçin" Dense="true" Variant="Variant.Outlined"
-               Value="@personelkod" ValueChanged="OnUserChanged">
-        @foreach (var user in MobileUsers)
-        {
-            <MudSelectItem Value="@user.PERSONELKODU">@user.PERSONELADI</MudSelectItem>
-        }
-    </MudSelect>
+        <!-- Kullanıcı Seçimi -->
+        <MudSelect T="string" 
+                   Label="Kullanıcı Seçin" 
+                   Dense="true" 
+                   Variant="Variant.Outlined"
+                   Value="@personelkod" 
+                   ValueChanged="OnUserChanged"
+                   Style="margin-bottom: 16px;">
+            @foreach (var user in MobileUsers)
+            {
+                <MudSelectItem Value="@user.PERSONELKODU">@user.PERSONELADI</MudSelectItem>
+            }
+        </MudSelect>
 
     <!-- Rapor Kartları -->
     @if (MobileUsers != null && Permissions != null && !string.IsNullOrEmpty(personelkod))
