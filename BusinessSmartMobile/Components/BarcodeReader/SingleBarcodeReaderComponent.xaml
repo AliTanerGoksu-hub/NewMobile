@@ -33,17 +33,19 @@
              Margin="10"
              Padding="0" />
 
-        <Button Text="❌"
+        <Button Text="✖ Kapat"
              x:Name="closeButton"
              Clicked="CloseButton_Clicked"
-             BackgroundColor="Black"
+             BackgroundColor="#EF4444"
              TextColor="White"
-             WidthRequest="80"
+             WidthRequest="120"
              HeightRequest="50"
-             FontSize="18"
+             FontSize="16"
+             FontAttributes="Bold"
              CornerRadius="25"
-             HorizontalOptions="End"
-             VerticalOptions="End"
-             Margin="10,70,10,10" />
+             HorizontalOptions="Center"
+             VerticalOptions="Start"
+             Margin="0,80,0,0"
+             Shadow="{Shadow Brush=Black, Radius=10, Opacity=0.5}" />
     </Grid>
 </ContentPage>
