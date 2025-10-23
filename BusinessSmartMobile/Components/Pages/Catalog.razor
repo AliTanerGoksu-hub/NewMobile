@@ -81,8 +81,8 @@
                             Size="Size.Small"
                             Class="position-absolute hover-scale btn-press"
                             Style="right:12px; bottom:12px; width:40px; height:40px; min-width:40px; min-height:40px; box-shadow: 0 4px 12px rgba(56, 239, 125, 0.4);"
-                            @onclick:stopPropagation="true"
-                            OnClick="@(() => AddToCart(item))" />
+                            @onclick="@(() => AddToCart(item))"
+                            @onclick:stopPropagation="true" />
                 </MudCard>
             </MudItem>
         }
