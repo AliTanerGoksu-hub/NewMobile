@@ -250,40 +250,21 @@
         font-weight: bold !important;
     }
 
-    /* Tamamla Butonu - Always Visible */
-    .tamamla-button {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-    }
-
     /* Pulse Animation for Button */
     @@keyframes pulse-ring {
         0% {
-            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6);
         }
-        70% {
-            box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+        50% {
+            box-shadow: 0 8px 32px rgba(239, 68, 68, 0.9);
         }
         100% {
-            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6);
         }
     }
 
-    .tamamla-button.pulse {
-        animation: pulse-ring 2s infinite;
-    }
-
-    /* Fixed Button Container - Always on Top */
-    #tamamla-fixed-button {
-        position: fixed !important;
-        right: 16px !important;
-        top: 50vh !important;
-        transform: translateY(-50%) !important;
-        z-index: 10000 !important;
-        display: block !important;
-        pointer-events: auto !important;
+    .pulse {
+        animation: pulse-ring 2s ease-in-out infinite !important;
     }
 </style>
 
