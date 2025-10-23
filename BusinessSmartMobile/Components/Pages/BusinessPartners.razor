@@ -8,14 +8,22 @@
 <div class="page-header fade-in-down" style="margin-top: 0; padding-top: 80px;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
-            <div class="fade-in-left delay-1">
-                <MudText Typo="Typo.h5" Class="page-header-title">
-                    <MudIcon Icon="@Icons.Material.Filled.People" Style="vertical-align: middle; margin-right: 8px;" />
-                    Cari İşlemler
-                </MudText>
-                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
-                    Müşteri ve tedarikçi listesi
-                </MudText>
+            <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 8px;">
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" 
+                               Color="Color.Surface" 
+                               Size="Size.Medium"
+                               Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #667eea;"
+                               OnClick="@(() => Navigation.NavigateTo("/home"))" 
+                               aria-label="Geri" />
+                <div>
+                    <MudText Typo="Typo.h5" Class="page-header-title">
+                        <MudIcon Icon="@Icons.Material.Filled.People" Style="vertical-align: middle; margin-right: 8px;" />
+                        Cari İşlemler
+                    </MudText>
+                    <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                        Müşteri ve tedarikçi listesi
+                    </MudText>
+                </div>
             </div>
             <div class="fade-in-right delay-2">
                 <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" 
