@@ -5,7 +5,7 @@
 @inject IJSRuntime JSRuntime
 
 <!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); margin-top: 0; padding-top: 80px;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
             <div class="fade-in-left delay-1">
@@ -21,13 +21,13 @@
                 <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" 
                                Color="Color.Surface" 
                                Class="hover-scale btn-press"
-                               Style="background: rgba(255,255,255,0.2); border-radius: 12px;"
+                               Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #11998e;"
                                @onclick="@(() => OpenFilterDialog())" 
                                aria-label="Filtre" />
                 <MudIconButton Icon="@Icons.Material.Filled.QrCodeScanner" 
                                Color="Color.Surface" 
                                Class="hover-scale btn-press"
-                               Style="background: rgba(255,255,255,0.2); border-radius: 12px;"
+                               Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #11998e;"
                                @onclick="OpenBarcodeScanner" 
                                aria-label="Barkod Okut" />
             </div>
