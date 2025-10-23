@@ -93,11 +93,13 @@
         <MudAlert Severity="Severity.Error" Class="my-4">@message</MudAlert>
     }
 
-    <MudIconButton Icon="@Icons.Material.Filled.Add"
-                   Color="Color.Success"
-                   Style="position:fixed; right:20px; bottom:20px; z-index:2000;
-                      width:40px; height:40px; border-radius:50%; background-color:#2e7d32; color:white;"
-                   OnClick="@(()=>GoToOrders())" />
+    <!-- Tamamla / Siparişe Git Butonu -->
+    <MudFab Color="Color.Success"
+            StartIcon="@Icons.Material.Filled.ShoppingCart"
+            Label="Tamamla"
+            Style="position: fixed; right: 20px; bottom: 20px; z-index: 2000; box-shadow: 0 8px 16px rgba(46, 125, 50, 0.4);"
+            Class="hover-scale btn-press"
+            OnClick="@(() => GoToOrders())" />
 </MudContainer>
 
 @code {
