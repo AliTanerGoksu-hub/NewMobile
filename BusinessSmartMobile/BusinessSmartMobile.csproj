@@ -70,7 +70,7 @@
 		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 		<RunAOTCompilation>False</RunAOTCompilation>
 		<AndroidKeyStore>True</AndroidKeyStore>
-		<!-- PRODUCTION: Environment variable'dan oku -->
+		<!-- PRODUCTION: Environment variable'dan oku, yoksa fallback -->
 		<AndroidSigningKeyAlias>bsm</AndroidSigningKeyAlias>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' != ''">$(ANDROID_KEYSTORE_PASS)</AndroidSigningStorePass>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' == ''">123456</AndroidSigningStorePass>
