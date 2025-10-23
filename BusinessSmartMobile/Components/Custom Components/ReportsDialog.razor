@@ -15,7 +15,7 @@
     </TitleContent>
 
     <DialogContent>
-        <div style="padding: 24px; background: #f8f9fa;">
+        <div style="padding: 24px; background: #f8f9fa; max-height: 60vh; overflow-y: auto;">
             <MudGrid Spacing="3">
                 @{
                     int delayIndex = 1;
@@ -24,15 +24,15 @@
                 {
                     var delayClass = $"fade-in-up delay-{delayIndex}";
                     <MudItem xs="12" sm="6" md="4" Class="@delayClass">
-                        <MudCard Class="report-card hover-lift-smooth" @onclick="@(() => OpenRapor(rapor.Url))" Style="cursor: pointer; height: 100%;">
-                            <MudCardContent Style="text-align: center; padding: 24px;">
+                        <MudCard Class="report-card hover-lift-smooth" @onclick="@(() => OpenRapor(rapor.Url))" Style="cursor: pointer;">
+                            <MudCardContent Style="text-align: center; padding: 20px;">
                                 <div class="report-card-icon" Style="background: @GetGradientForReport(rapor.Ad);">
                                     <MudIcon Icon="@rapor.Icon" Size="Size.Large" Style="color: white; font-size: 40px;" />
                                 </div>
-                                <MudText Typo="Typo.h6" Style="margin-top: 16px; font-weight: 600; color: #2c3e50;">
+                                <MudText Typo="Typo.subtitle1" Style="margin-top: 12px; font-weight: 600; color: #2c3e50; font-size: 0.95rem;">
                                     @rapor.Ad
                                 </MudText>
-                                <MudText Typo="Typo.body2" Style="color: #6c757d; margin-top: 8px;">
+                                <MudText Typo="Typo.caption" Style="color: #6c757d; margin-top: 4px; font-size: 0.75rem;">
                                     @GetReportDescription(rapor.Ad)
                                 </MudText>
                             </MudCardContent>
