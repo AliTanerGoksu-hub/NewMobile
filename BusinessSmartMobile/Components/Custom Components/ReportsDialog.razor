@@ -129,26 +129,91 @@
 }
 
 <style>
-    .custom-dialog {
-        border-radius: 12px;
-        width: 500px; /* Genişlik artırıldı */
-        max-width: 90%; /* Responsive olması için max genişlik */
+    .modern-report-dialog {
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .report-dialog-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: white;
+    }
+
+    .report-icon-container {
+        width: 56px;
+        height: 56px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
     }
 
     .dialog-title {
-        font-size: 1.4rem;
-        font-weight: bold;
-        margin-left: 10px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
     }
 
-    .mud-list-item {
+    .report-card {
+        background: white;
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e9ecef;
+        height: 100%;
+    }
+
+    .report-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        border-color: transparent;
+    }
+
+    .report-card-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
         display: flex;
         align-items: center;
-        transition: background 0.3s;
-        padding: 10px; /* Satırlar biraz daha geniş */
+        justify-content: center;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-        .mud-list-item:hover {
-            background: rgba(0, 150, 136, 0.1);
+    .report-card:hover .report-card-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Animation delays */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    .delay-7 { animation-delay: 0.7s; }
+
+    /* Responsive */
+    @@media (max-width: 600px) {
+        .report-dialog-header {
+            padding: 20px 16px;
         }
+
+        .report-icon-container {
+            width: 48px;
+            height: 48px;
+        }
+
+        .report-card-icon {
+            width: 64px;
+            height: 64px;
+        }
+    }
 </style>
