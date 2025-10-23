@@ -237,4 +237,22 @@
     .font-weight-bold {
         font-weight: bold !important;
     }
+
+    /* Tamamla Butonu - Always Visible */
+    .tamamla-button {
+        position: fixed !important;
+        right: 20px !important;
+        bottom: 20px !important;
+        z-index: 9999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    /* MudBlazor overrides */
+    .mud-fab.tamamla-button {
+        position: fixed !important;
+        z-index: 9999 !important;
+    }
 </style>
