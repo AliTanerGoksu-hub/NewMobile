@@ -10,18 +10,61 @@
 @inject AuthService _authService
 @using System.Linq
 
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 0; padding-top: 80px;">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="d-flex justify-space-between align-center">
+            <div class="fade-in-left delay-1">
+                <MudText Typo="Typo.h5" Class="page-header-title">
+                    <MudIcon Icon="@Icons.Material.Filled.NoteAdd" Style="vertical-align: middle; margin-right: 8px;" />
+                    Yeni Sipariş
+                </MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    Sipariş oluştur ve ürün ekle
+                </MudText>
+            </div>
+            <div class="fade-in-right delay-2">
+                <MudIconButton Icon="@Icons.Material.Filled.Save" 
+                               Color="Color.Surface" 
+                               Class="hover-scale btn-press"
+                               Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #667eea;"
+                               @onclick="@(() => AddNewOrder())" 
+                               aria-label="Siparişi Kaydet" />
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (_loading)
 {
-    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-4" />
-}
-@if (_error)
-{
-    <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">İşlem yapılıyor...</MudText>
+    </div>
 }
 
-<MudContainer>
-    <MudButton Variant="Variant.Filled" FullWidth="true" Class="mt-2" Color="Color.Primary" @onclick="@(() => AddNewOrder())" aria-label="Siparişi Kaydet">Siparişi Kaydet</MudButton>
+@if (_error)
+{
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@_errorMessage</div>
+        </div>
+    </div>
+}
+
+<MudContainer Class="fade-in-up delay-1" Style="margin-top: 16px;">
+    <MudButton Variant="Variant.Filled" 
+               FullWidth="true" 
+               Size="Size.Large"
+               StartIcon="@Icons.Material.Filled.Save"
+               Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border-radius: 12px; padding: 12px; box-shadow: 0 4px 12px rgba(17, 153, 142, 0.3);"
+               Class="hover-lift-smooth mb-4" 
+               @onclick="@(() => AddNewOrder())" 
+               aria-label="Siparişi Kaydet">
+        Siparişi Kaydet
+    </MudButton>
     <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
         <MudTabPanel Text="Sipariş Detay">
             <MudGrid Spacing="1">
