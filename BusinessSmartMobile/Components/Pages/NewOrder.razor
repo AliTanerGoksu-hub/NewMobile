@@ -216,17 +216,25 @@
             </MudGrid>
         </MudTabPanel>
     </MudTabs>
+    </MudPaper>
 
     @if (BarkodListesiGorunsun)
     {
-        <MudPaper Class="p-4 my-2" Style="border: 1px solid #ccc;">
-            <MudText Typo="Typo.h6">Barkodla Eklenen Ürünler</MudText>
+        <MudPaper Elevation="3" Class="p-4 my-3 fade-in-up" Style="border-radius: 16px; border-left: 4px solid #667eea;">
+            <MudText Typo="Typo.h6" Style="color: #2c3e50; font-weight: 600; margin-bottom: 16px;">
+                <MudIcon Icon="@Icons.Material.Filled.QrCodeScanner" Style="vertical-align: middle; margin-right: 8px;" />
+                Barkodla Eklenen Ürünler
+            </MudText>
 
-            <MudTable Items="BarkodGeciciListe" Dense="true">
+            <MudTable Items="BarkodGeciciListe" 
+                      Dense="true" 
+                      Hover="true"
+                      Elevation="0"
+                      Style="border-radius: 12px; overflow: hidden;">
                 <HeaderContent>
-                    <MudTh>Ürün</MudTh>
-                    <MudTh>Miktar</MudTh>
-                    <MudTh>Birim</MudTh>
+                    <MudTh Style="background: #f8f9fa; font-weight: 600;">Ürün</MudTh>
+                    <MudTh Style="background: #f8f9fa; font-weight: 600;">Miktar</MudTh>
+                    <MudTh Style="background: #f8f9fa; font-weight: 600;">Birim</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd>@context.Urun.sAciklama</MudTd>
@@ -235,13 +243,23 @@
                 </RowTemplate>
             </MudTable>
 
-            <div class="mt-2">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@OnaylaBarkodListesini">Onayla ve Aktar</MudButton>
-                <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="@(() => BarkodListesiGorunsun = false)">İptal</MudButton>
+            <div class="mt-3" style="display: flex; gap: 12px;">
+                <MudButton Variant="Variant.Filled" 
+                           Color="Color.Success" 
+                           StartIcon="@Icons.Material.Filled.Check"
+                           Class="hover-lift-smooth"
+                           OnClick="@OnaylaBarkodListesini">
+                    Onayla ve Aktar
+                </MudButton>
+                <MudButton Variant="Variant.Outlined" 
+                           Color="Color.Default" 
+                           StartIcon="@Icons.Material.Filled.Close"
+                           OnClick="@(() => BarkodListesiGorunsun = false)">
+                    İptal
+                </MudButton>
             </div>
         </MudPaper>
     }
-
 
 </MudContainer>
 
