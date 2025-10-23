@@ -227,6 +227,31 @@
             }, 300);
         });
     };
+
+    // Tamamla butonunu ZORLA fixed position'da tut
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            const btn = document.getElementById('tamamla-fixed-btn');
+            if (btn) {
+                btn.style.setProperty('position', 'fixed', 'important');
+                btn.style.setProperty('right', '20px', 'important');
+                btn.style.setProperty('top', '50%', 'important');
+                btn.style.setProperty('transform', 'translateY(-50%)', 'important');
+                btn.style.setProperty('z-index', '999999', 'important');
+            }
+        }, 100);
+    });
+
+    // Scroll olduğunda da kontrol et
+    window.addEventListener('scroll', function() {
+        const btn = document.getElementById('tamamla-fixed-btn');
+        if (btn) {
+            btn.style.setProperty('position', 'fixed', 'important');
+            btn.style.setProperty('right', '20px', 'important');
+            btn.style.setProperty('top', '50%', 'important');
+            btn.style.setProperty('transform', 'translateY(-50%)', 'important');
+        }
+    });
 </script>
 
 <style>
