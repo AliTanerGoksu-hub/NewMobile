@@ -1,0 +1,72 @@
+@page "/bp/detail/{FirmaKodu}"
+@inject BusinessPartnerService BusinessPartnerService
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+
+<!-- Modern Page Header -->
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-top: 0; padding-top: 80px;">
+    <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
+        <div class="d-flex align-center" style="gap: 12px;">
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" 
+                           Color="Color.Surface" 
+                           Size="Size.Medium"
+                           Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #667eea;"
+                           OnClick="@(() => Navigation.NavigateTo(\"/bp\"))" 
+                           aria-label="Geri" />
+            <div>
+                <MudText Typo="Typo.h5" Class="page-header-title">
+                    <MudIcon Icon="@Icons.Material.Filled.PersonOutline" Style="vertical-align: middle; margin-right: 8px;" />
+                    Cari Detay
+                </MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.9);">
+                    Bakiye ve hareket bilgileri
+                </MudText>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (_loading)
+{
+    <div class="loading-container fade-in">
+        <div class="loading-spinner"></div>
+        <MudText Typo="Typo.body2" Class="loading-text">Yükleniyor...</MudText>
+    </div>
+}
+
+@if (_error)
+{
+    <div class="error-container fade-in-up">
+        <MudIcon Icon="@Icons.Material.Filled.Error" Class="error-icon" />
+        <div class="error-content">
+            <div class="error-title">Hata Oluştu</div>
+            <div class="error-message">@(_errorMessage == "Bakiye bilgileri alınamadı." ? "Hareket bulunamadı." : _errorMessage)</div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string FirmaKodu { get; set; } = "";
+    
+    private bool _loading = true;
+    private bool _error = false;
+    private string _errorMessage = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _loading = true;
+            // Load data logic here
+            await Task.Delay(100);
+            _loading = false;
+        }
+        catch (Exception ex)
+        {
+            _error = true;
+            _errorMessage = ex.Message;
+            _loading = false;
+        }
+    }
+}
