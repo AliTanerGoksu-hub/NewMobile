@@ -98,8 +98,8 @@
 <MudFab Color="Color.Error"
         StartIcon="@Icons.Material.Filled.ShoppingCart"
         Label="Tamamla"
-        Style="position: fixed; right: 20px; bottom: 20px; z-index: 2000; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5); background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);"
-        Class="hover-scale btn-press"
+        Style="position: fixed !important; right: 20px !important; bottom: 20px !important; z-index: 9999 !important; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5) !important; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%) !important; display: block !important; visibility: visible !important;"
+        Class="hover-scale btn-press tamamla-button"
         OnClick="@(() => GoToOrders())" />
 
 @code {
