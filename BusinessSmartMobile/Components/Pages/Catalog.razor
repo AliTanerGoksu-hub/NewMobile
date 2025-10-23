@@ -288,17 +288,19 @@
 </style>
 
 <!-- Tamamla Butonu - SAĞ ORTA SABİT (Viewport'a göre) -->
-<div id="tamamla-fixed-button">
+<div style="position: fixed !important; 
+            right: 16px !important; 
+            bottom: 120px !important;
+            z-index: 99999 !important;">
     <MudFab Color="Color.Error"
             Icon="@Icons.Material.Filled.ShoppingCart"
             Style="box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6) !important; 
                    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%) !important; 
                    width: 64px !important; 
                    height: 64px !important;
-                   color: white !important;
-                   position: relative !important;"
+                   color: white !important;"
             Size="Size.Large"
-            Class="tamamla-button pulse"
+            Class="pulse"
             aria-label="Siparişi Tamamla"
             OnClick="@(() => GoToOrders())" />
 </div>
