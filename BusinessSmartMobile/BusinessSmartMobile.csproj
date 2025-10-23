@@ -74,7 +74,8 @@
 		<AndroidSigningKeyAlias>bsm</AndroidSigningKeyAlias>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' != ''">$(ANDROID_KEYSTORE_PASS)</AndroidSigningStorePass>
 		<AndroidSigningStorePass Condition="'$(ANDROID_KEYSTORE_PASS)' == ''">123456</AndroidSigningStorePass>
-		<AndroidSigningKeyPass>$(ANDROID_KEY_PASS)</AndroidSigningKeyPass>
+		<AndroidSigningKeyPass Condition="'$(ANDROID_KEY_PASS)' != ''">$(ANDROID_KEY_PASS)</AndroidSigningKeyPass>
+		<AndroidSigningKeyPass Condition="'$(ANDROID_KEY_PASS)' == ''">123456</AndroidSigningKeyPass>
 		<!-- Google Play Store için AAB format zorunlu -->
 	</PropertyGroup>
 
