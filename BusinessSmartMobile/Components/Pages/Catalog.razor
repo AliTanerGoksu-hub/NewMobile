@@ -243,19 +243,26 @@
 
     /* Tamamla Butonu - Always Visible */
     .tamamla-button {
-        position: fixed !important;
-        right: 20px !important;
-        bottom: 20px !important;
-        z-index: 9999 !important;
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
     }
 
-    /* MudBlazor overrides */
-    .mud-fab.tamamla-button {
-        position: fixed !important;
-        z-index: 9999 !important;
+    /* Pulse Animation for Button */
+    @keyframes pulse-ring {
+        0% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        }
+    }
+
+    .tamamla-button.pulse {
+        animation: pulse-ring 2s infinite;
     }
 </style>
