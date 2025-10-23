@@ -254,4 +254,31 @@
     .tamamla-button.pulse {
         animation: pulse-ring 2s infinite;
     }
+
+    /* Fixed Button Container - Always on Top */
+    #tamamla-fixed-button {
+        position: fixed !important;
+        right: 16px !important;
+        top: 50vh !important;
+        transform: translateY(-50%) !important;
+        z-index: 10000 !important;
+        display: block !important;
+        pointer-events: auto !important;
+    }
 </style>
+
+<!-- Tamamla Butonu - SAĞ ORTA SABİT (Viewport'a göre) -->
+<div id="tamamla-fixed-button">
+    <MudFab Color="Color.Error"
+            Icon="@Icons.Material.Filled.ShoppingCart"
+            Style="box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6) !important; 
+                   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%) !important; 
+                   width: 64px !important; 
+                   height: 64px !important;
+                   color: white !important;
+                   position: relative !important;"
+            Size="Size.Large"
+            Class="tamamla-button pulse"
+            aria-label="Siparişi Tamamla"
+            OnClick="@(() => GoToOrders())" />
+</div>
