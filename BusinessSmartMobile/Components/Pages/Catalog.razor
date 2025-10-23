@@ -92,15 +92,15 @@
     {
         <MudAlert Severity="Severity.Error" Class="my-4">@message</MudAlert>
     }
-
-    <!-- Tamamla / Siparişe Git Butonu -->
-    <MudFab Color="Color.Error"
-            StartIcon="@Icons.Material.Filled.ShoppingCart"
-            Label="Tamamla"
-            Style="position: fixed; right: 20px; bottom: 20px; z-index: 2000; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5); background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);"
-            Class="hover-scale btn-press"
-            OnClick="@(() => GoToOrders())" />
 </MudContainer>
+
+<!-- Tamamla / Siparişe Git Butonu - Container Dışında -->
+<MudFab Color="Color.Error"
+        StartIcon="@Icons.Material.Filled.ShoppingCart"
+        Label="Tamamla"
+        Style="position: fixed; right: 20px; bottom: 20px; z-index: 2000; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.5); background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);"
+        Class="hover-scale btn-press"
+        OnClick="@(() => GoToOrders())" />
 
 @code {
     private List<Stock> catalogList = new();
