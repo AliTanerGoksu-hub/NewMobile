@@ -92,8 +92,8 @@
 
         try
         {
-            var result = await PaymentService.ProcessPaymentAsync(_cariKodu, _odemeSekliKodu, _tutar);
-            if (result.Success)
+            var result = await PaymentService.AddPayment(_cariKodu, _odemeSekliKodu, _tutar);
+            if (result == "OK")
             {
                 await DialogService.ShowMessageBox("Başarılı", "Ödeme işlemi başarıyla tamamlandı.");
                 Navigation.NavigateTo("/");
@@ -101,7 +101,7 @@
             else
             {
                 _error = true;
-                _errorMessage = result.ErrorMessage ?? "Ödeme işlemi başarısız.";
+                _errorMessage = result;
             }
         }
         catch (Exception ex)
