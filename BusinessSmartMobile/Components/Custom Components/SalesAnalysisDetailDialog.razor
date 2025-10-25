@@ -47,10 +47,10 @@
                     <MudTd DataLabel="Renk">@context.sRenk</MudTd>
                 }
                     <MudTd DataLabel="Miktar" Style="text-align:right">@context.Miktar</MudTd>
-                    <MudTd DataLabel="Maliyet" Style="text-align:right">@context.MALIYET</MudTd>
-                    <MudTd DataLabel="Fiyat" Style="text-align:right">@context.Fiyat</MudTd>
-                    <MudTd DataLabel="İskonto" Style="text-align:right">@context.Iskonto</MudTd>
-                    <MudTd DataLabel="Net Tutar" Style="text-align:right">@context.lNetTutar</MudTd>
+                    <MudTd DataLabel="Maliyet" Style="text-align:right">@context.MALIYET.ToString("N0") TL</MudTd>
+                    <MudTd DataLabel="Fiyat" Style="text-align:right">@context.Fiyat.ToString("N0") TL</MudTd>
+                    <MudTd DataLabel="İskonto" Style="text-align:right">@context.Iskonto.ToString("N0") TL</MudTd>
+                    <MudTd DataLabel="Net Tutar" Style="text-align:right">@context.lNetTutar.ToString("N0") TL</MudTd>
                     <MudTd DataLabel="Fiyat Tipi">@context.sFiyatTipi</MudTd>
                     <MudTd DataLabel="Satıcı">@context.satici</MudTd>
                     <MudTd DataLabel="Mağaza">@context.sMagaza</MudTd>
