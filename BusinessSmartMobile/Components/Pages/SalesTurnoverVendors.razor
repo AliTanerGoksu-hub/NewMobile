@@ -97,8 +97,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        sSaticiRumuzu= _authService.Auth.sSaticiRumuzu;
-        LoadList(startDateStr, endDateStr,sSaticiRumuzu);
+        sSaticiRumuzu = _authService.Auth?.sSaticiRumuzu ?? "";
+        LoadList(startDateStr, endDateStr, sSaticiRumuzu);
     }
 
 

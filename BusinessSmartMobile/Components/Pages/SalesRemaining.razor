@@ -96,7 +96,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        magaza = _authService.Auth.sDepo;
+        magaza = _authService.Auth?.sDepo ?? "";
         LoadList(startDateStr, endDateStr, magaza);
     }
 

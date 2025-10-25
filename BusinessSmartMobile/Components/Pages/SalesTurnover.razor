@@ -85,7 +85,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        sDepo = _authService.Auth.sDepo;
+        sDepo = _authService.Auth?.sDepo ?? "";
         LoadList(startDateStr, endDateStr, sDepo);
     }
 

@@ -162,9 +162,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        sDepo = _authService.Auth.sDepo;
-        sSaticiRumuzu = _authService.Auth.sSaticiRumuzu;
-        personelKodu = _authService.Auth.PERSONELKODU;
+        sDepo = _authService.Auth?.sDepo ?? "";
+        sSaticiRumuzu = _authService.Auth?.sSaticiRumuzu ?? "";
+        personelKodu = _authService.Auth?.PERSONELKODU ?? "";
         LoadList(startDateStr, endDateStr, sSaticiRumuzu, sDepo, "1");
     }
 
