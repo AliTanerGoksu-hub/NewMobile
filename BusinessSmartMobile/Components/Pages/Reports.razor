@@ -1,0 +1,183 @@
+@page "/reports"
+@inject NavigationManager NavigationManager
+@inject AuthService AuthService
+
+<div style="background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); min-height: 100vh; padding-bottom: 32px;">
+    
+    <!-- Header Section -->
+    <div class="page-header fade-in-down" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 24px 16px; margin-bottom: 24px;">
+        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => NavigationManager.NavigateTo("/home"))" aria-label="Geri" Title="Ana Menüye Dön" Style="color: white;" />
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
+            <div style="width: 56px; height: 56px; background: rgba(255,255,255,0.2); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                <MudIcon Icon="@Icons.Material.Filled.Assessment" Size="Size.Large" Style="color: white;" />
+            </div>
+            <div>
+                <MudText Typo="Typo.h5" Style="font-weight: 600; color: white; margin: 0;">Raporlar</MudText>
+                <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Görüntülemek istediğiniz raporu seçin</MudText>
+            </div>
+        </div>
+    </div>
+
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudGrid Spacing="3">
+            @{
+                int delayIndex = 1;
+            }
+            @foreach (var rapor in RaporListesi)
+            {
+                var delayClass = $"fade-in-up delay-{delayIndex}";
+                <MudItem xs="12" sm="6" md="4" Class="@delayClass">
+                    <MudCard Class="report-card hover-lift-smooth" @onclick="@(() => NavigationManager.NavigateTo(rapor.Url, forceLoad: true))" Style="cursor: pointer;">
+                        <MudCardContent Style="text-align: center; padding: 20px;">
+                            <div class="report-card-icon" Style="background: @GetGradientForReport(rapor.Ad);">
+                                <MudIcon Icon="@rapor.Icon" Size="Size.Large" Style="color: white; font-size: 40px;" />
+                            </div>
+                            <MudText Typo="Typo.subtitle1" Style="margin-top: 12px; font-weight: 600; color: #2c3e50; font-size: 0.95rem;">
+                                @rapor.Ad
+                            </MudText>
+                            <MudText Typo="Typo.caption" Style="color: #6c757d; margin-top: 4px; font-size: 0.75rem;">
+                                @GetReportDescription(rapor.Ad)
+                            </MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                delayIndex++;
+            }
+        </MudGrid>
+    </MudContainer>
+</div>
+
+@code {
+    private List<ReportItem> RaporListesi = new()
+    {
+        new ReportItem("Ödenecek Çek", "/payableCheque", Icons.Material.Filled.Payment),
+        new ReportItem("Satış Analizi", "/salesAnalysis", Icons.Material.Filled.BarChart),
+        new ReportItem("Satış Ciroları", "/salesTurnover", Icons.Material.Filled.ShowChart),
+        new ReportItem("Satış Ciroları Satıcılar", "/salesTurnoverVendors", Icons.Material.Filled.People),
+        new ReportItem("Satış Ciroları Sınıflandırmaları", "/salesTurnoverClassifications", Icons.Material.Filled.Category),
+        new ReportItem("Satış Kalan Raporu", "/salesRemaining", Icons.Material.Filled.ListAlt),
+        new ReportItem("Teslimat Rapor", "/deliveryReport", Icons.Material.Filled.DeliveryDining)
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string user = AuthService.Auth?.PERSONELKODU ?? throw new Exception("Personel Kodu Bulunamadı.");
+            var (permissions, _errorMessage) = await AuthService.GetReportPerm(user);
+            RaporListesi = RaporListesi
+                .Where(r => permissions.Any(p => p.RaporAciklama == r.Ad && p.YetkisiVar))
+                .ToList();
+        }
+        catch (Exception ex)
+        {
+            // Hata yönetimi
+        }
+    }
+
+    private string GetGradientForReport(string reportName)
+    {
+        return reportName switch
+        {
+            "Ödenecek Çek" => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            "Satış Analizi" => "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)",
+            "Satış Ciroları" => "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            "Satış Ciroları Satıcılar" => "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+            "Satış Ciroları Sınıflandırmaları" => "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+            "Satış Kalan Raporu" => "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+            "Teslimat Rapor" => "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+            _ => "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+        };
+    }
+
+    private string GetReportDescription(string reportName)
+    {
+        return reportName switch
+        {
+            "Ödenecek Çek" => "Çek takibi",
+            "Satış Analizi" => "Satış raporu",
+            "Satış Ciroları" => "Ciro raporu",
+            "Satış Ciroları Satıcılar" => "Satıcı bazlı",
+            "Satış Ciroları Sınıflandırmaları" => "Kategori bazlı",
+            "Satış Kalan Raporu" => "Açık siparişler",
+            "Teslimat Rapor" => "Teslimat takip",
+            _ => "Detaylar"
+        };
+    }
+
+    private record ReportItem(string Ad, string Url, string Icon);
+}
+
+<style>
+    .report-card {
+        background: white;
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e9ecef;
+        height: 100%;
+    }
+
+    .report-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        border-color: transparent;
+    }
+
+    .report-card-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .report-card:hover .report-card-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .hover-lift-smooth {
+        transition: all 0.3s ease;
+    }
+
+    .fade-in-down {
+        animation: fadeInDown 0.6s ease-out;
+    }
+
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out both;
+    }
+
+    @@keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+    .delay-7 { animation-delay: 0.7s; }
+</style>

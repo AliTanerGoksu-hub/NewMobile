@@ -118,7 +118,7 @@
 
         <!-- Rapor Kartı -->
         <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(OpenDialog)">
+            <MudCard Elevation="4" Class="rounded-lg" @onclick="@(() => Navigation.NavigateTo("/reports"))">
                 <MudCardContent Style="padding: 24px;">
                     <div class="d-flex flex-column align-center">
                         <MudIcon Icon="@Icons.Material.Filled.Assessment" Color="Color.Success" Size="Size.Large" Style="width: 64px; height: 64px;" />

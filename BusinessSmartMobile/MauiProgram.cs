@@ -42,6 +42,8 @@ namespace BusinessSmartMobile
             builder.Services.AddScoped<PaymentService>();
             builder.Services.AddScoped<AuthService>();
             builder.Services.AddScoped<DeviceService>();
+            builder.Services.AddScoped<PdfService>();
+            builder.Services.AddScoped<ReportPdfService>();
 
             // Sepeti tüm uygulama boyunca korumak istiyorsan Singleton mantıklı:
             builder.Services.AddSingleton<CatalogService>();
