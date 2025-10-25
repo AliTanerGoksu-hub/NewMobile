@@ -183,6 +183,20 @@
         var sDepo = _authService.Auth?.sDepo;
         string sFiyatTipi = _authService.Auth?.sAktifFiyatTipi ?? "1";
 
+        // DEBUG: orderDetail içeriğini kontrol et
+        Console.WriteLine($"=== PRINT DEBUG START ===");
+        Console.WriteLine($"orderDetail Count: {orderDetail?.Count ?? 0}");
+        if (orderDetail != null && orderDetail.Any())
+        {
+            var first = orderDetail.First();
+            Console.WriteLine($"First Order - nSiparisID: {first.nSiparisID}");
+            Console.WriteLine($"First Order - sAciklama1: '{first.sAciklama1}'");
+            Console.WriteLine($"First Order - sAciklama2: '{first.sAciklama2}'");
+            Console.WriteLine($"First Order - sAciklama3: '{first.sAciklama3}'");
+            Console.WriteLine($"First Order - sAciklama4: '{first.sAciklama4}'");
+            Console.WriteLine($"First Order - sAciklama5: '{first.sAciklama5}'");
+        }
+
         foreach (var item in orderDetail)
         {
             Urun = await OrderService.GetStock(1, 1, item.sKodu);
@@ -212,6 +226,11 @@
             sAciklama4 = firstOrder?.sAciklama4 ?? "",
             sAciklama5 = firstOrder?.sAciklama5 ?? ""
         };
+        
+        Console.WriteLine($"=== siparisAciklamasi CREATED ===");
+        Console.WriteLine($"siparisAciklamasi.sAciklama2: '{siparisAciklamasi.sAciklama2}'");
+        Console.WriteLine($"siparisAciklamasi.sAciklama3: '{siparisAciklamasi.sAciklama3}'");
+        Console.WriteLine($"=== PRINT DEBUG END ===");
 
         await OrderService.RePrintPDF(SecilenUrunler, nSiparisId, siparisAciklamasi);
     }
