@@ -16,6 +16,7 @@
     <MudAlert Severity="Severity.Error" Class="my-4">@_errorMessage</MudAlert>
 }
 
+<div style="width: 100%; overflow-x: auto; padding: 0 8px;">
 <MudTable Class="mx-2"
           Breakpoint="Breakpoint.None"
           Items="list" Dense="true"
@@ -66,6 +67,7 @@
         <MudTablePager RowsPerPageString="Gösterilecek Satır" />
     </PagerContent>
 </MudTable>
+</div>
 
 @code {
     //private IEnumerable<TbFirma> Elements = Enumerable.Empty<TbFirma>();
