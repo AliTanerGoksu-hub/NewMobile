@@ -229,14 +229,28 @@ namespace BusinessSmartMobile.Services
                 
                 // Sipariş detaylarından açıklama bilgilerini al
                 var (orderDetails, message) = await GetOrderDetails(siparisId.ToString(), _authService.Auth.sSaticiRumuzu);
+                
+                Console.WriteLine($"DEBUG: OrderDetails Count: {orderDetails?.Count ?? 0}");
+                
                 if (orderDetails != null && orderDetails.Any())
                 {
                     var firstOrder = orderDetails.First();
+                    Console.WriteLine($"DEBUG: sAciklama1: '{firstOrder.sAciklama1}'");
+                    Console.WriteLine($"DEBUG: sAciklama2: '{firstOrder.sAciklama2}'");
+                    Console.WriteLine($"DEBUG: sAciklama3: '{firstOrder.sAciklama3}'");
+                    
                     siparisAciklamasi.sAciklama1 = firstOrder.sAciklama1 ?? "";
                     siparisAciklamasi.sAciklama2 = firstOrder.sAciklama2 ?? "";
                     siparisAciklamasi.sAciklama3 = firstOrder.sAciklama3 ?? "";
                     siparisAciklamasi.sAciklama4 = firstOrder.sAciklama4 ?? "";
                     siparisAciklamasi.sAciklama5 = firstOrder.sAciklama5 ?? "";
+                    
+                    Console.WriteLine($"DEBUG: siparisAciklamasi.sAciklama2 set to: '{siparisAciklamasi.sAciklama2}'");
+                    Console.WriteLine($"DEBUG: siparisAciklamasi.sAciklama3 set to: '{siparisAciklamasi.sAciklama3}'");
+                }
+                else
+                {
+                    Console.WriteLine("DEBUG: No order details found!");
                 }
                 
                 var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI, siparisAciklamasi);
