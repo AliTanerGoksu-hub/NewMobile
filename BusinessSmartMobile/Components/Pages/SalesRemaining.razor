@@ -1,5 +1,8 @@
 ﻿@page "/salesRemaining"
 @inject ReportsService ReportsService
+@inject OrderService OrderService
+@inject ReportPdfService ReportPdfService
+@inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @inject IJSRuntime JSRuntime
@@ -30,11 +33,13 @@
           FixedFooter="true"
           Style="height:calc(100vh - 280px);overflow-y:auto">
     <ToolBarContent>
+        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="@(() => NavigationManager.NavigateTo("/reports"))" aria-label="Geri" Title="Raporlar Menüsüne Dön" />
         <div style="flex: 1;">
             <MudText Typo="Typo.h6">Satış Kalan Raporu</MudText>
         </div>
 
         <div>
+            <MudIconButton Icon="@Icons.Material.Filled.Print" @onclick="PrintReport" aria-label="Yazdır" Title="Raporu PDF Olarak İndir"></MudIconButton>
             <MudIconButton Icon="@Icons.Material.Filled.FilterAlt" @onclick="@(() => OpenFilterDialog())" aria-label="Filtre"></MudIconButton>
         </div>
     </ToolBarContent>
@@ -181,5 +186,33 @@
             StateHasChanged();
         }
 
+    }
+
+    private async Task PrintReport()
+    {
+        try
+        {
+            if (list == null || !list.Any())
+            {
+                Snackbar.Add("Yazdırılacak veri bulunamadı!", Severity.Warning);
+                return;
+            }
+
+            var (paramGenel, errorMsg) = await OrderService.GetParamGenel();
+            if (paramGenel == null)
+            {
+                Snackbar.Add("Firma bilgileri alınamadı!", Severity.Error);
+                return;
+            }
+
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
+            
+            await JSRuntime.InvokeVoidAsync("saveAsFile", "SatisKalanRaporu.pdf", Convert.ToBase64String(pdfBytes));
+            Snackbar.Add("Rapor PDF olarak indirildi!", Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"PDF oluşturulurken hata: {ex.Message}", Severity.Error);
+        }
     }
 }
