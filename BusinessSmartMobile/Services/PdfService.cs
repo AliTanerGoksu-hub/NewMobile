@@ -52,14 +52,14 @@ public class PdfService
         string dateText = $"Tarih: {DateTime.Now:dd/MM/yyyy}";
         float dateWidth = infoPaint.MeasureText(dateText);
         canvas.DrawText(dateText, PageWidth - MarginRight - dateWidth, currentY, infoPaint);
-        currentY += 25;
+        currentY += 20;  // 25'ten 20'ye düşürdük
         canvas.DrawText(paramGenel.sFirmaAdi, MarginLeft, currentY, companyPaint);
-        currentY += 20;
+        currentY += 15;  // 20'den 15'e düşürdük
         canvas.DrawText($"Adres: {paramGenel.sFirmaAdresi}", MarginLeft, currentY, infoPaint);
         string phoneText = $"Telefon: {paramGenel.sTelefon1}";
         float phoneWidth = infoPaint.MeasureText(phoneText);
         canvas.DrawText(phoneText, PageWidth - MarginRight - phoneWidth, currentY, infoPaint);
-        currentY += 30;
+        currentY += 20;  // 30'dan 20'ye düşürdük
     }
 
     private void AddCompanyAndOrderInfo(TbFirma firma, int siparisId, TbSiparisAciklamasi siparisAciklama = null)
@@ -106,7 +106,7 @@ public class PdfService
             ? $"Sipariş Notu: {siparisAciklama.sAciklama3}" 
             : "";
         canvas.DrawText(notText, MarginLeft + halfWidth + 5, currentY, infoPaint);
-        currentY += 35;
+        currentY += 25;  // 35'ten 25'e düşürdük
     }
 
     private void AddOrderDetailsTable(List<UrunSecimi> order)
@@ -280,7 +280,8 @@ public class PdfService
         canvas.DrawRect(totalWithoutDiscountRect, borderPaint);
         canvas.DrawLine(MarginLeft + labelWidth, currentY - 15, MarginLeft + labelWidth, currentY + 5, borderPaint);
         canvas.DrawText("Toplam:", MarginLeft + 5, currentY, totalPaint);
-        string toplamTutarText = $"₺{toplamTutar:N2}";
+        string toplamTutarText = $"{toplamTutar:N0} TL";
+        toplamTutarText = toplamTutarText.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim();
         float tutarWidth = totalPaint.MeasureText(toplamTutarText);
         canvas.DrawText(toplamTutarText, PageWidth - MarginRight - tutarWidth - 5, currentY, totalPaint);
         currentY += 20;
@@ -293,7 +294,8 @@ public class PdfService
             canvas.DrawRect(discountRect, borderPaint);
             canvas.DrawLine(MarginLeft + labelWidth, currentY - 15, MarginLeft + labelWidth, currentY + 5, borderPaint);
             canvas.DrawText("Toplam İskonto:", MarginLeft + 5, currentY, totalPaint);
-            string toplamIskontoText = $"₺{toplamIskonto:N2}";
+            string toplamIskontoText = $"{toplamIskonto:N0} TL";
+            toplamIskontoText = toplamIskontoText.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim();
             float iskontoWidth = totalPaint.MeasureText(toplamIskontoText);
             canvas.DrawText(toplamIskontoText, PageWidth - MarginRight - iskontoWidth - 5, currentY, totalPaint);
             currentY += 20;
@@ -305,10 +307,11 @@ public class PdfService
         canvas.DrawRect(grandTotalRect, borderPaint);
         canvas.DrawLine(MarginLeft + labelWidth, currentY - 15, MarginLeft + labelWidth, currentY + 5, borderPaint);
         canvas.DrawText("Genel Toplam:", MarginLeft + 5, currentY, totalPaint);
-        string genelToplamText = $"₺{genelToplam:N2}";
+        string genelToplamText = $"{genelToplam:N0} TL";
+        genelToplamText = genelToplamText.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim();
         float genelToplamWidth = totalPaint.MeasureText(genelToplamText);
         canvas.DrawText(genelToplamText, PageWidth - MarginRight - genelToplamWidth - 5, currentY, totalPaint);
-        currentY += 35;
+        currentY += 25;  // 35'ten 25'e düşürdük - footer için yer açmak
     }
 
     private void AddSignatureAreas(string personelAdi)
@@ -316,12 +319,12 @@ public class PdfService
         using var signaturePaint = new SKPaint { Color = TextGray, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
         using var linePaint = new SKPaint { Color = TextGray, Style = SKPaintStyle.Stroke, StrokeWidth = 1 };
         canvas.DrawText("Siparişi Alan", MarginLeft, currentY, signaturePaint);
-        currentY += 20;
+        currentY += 15;  // 20'den 15'e düşürdük
         canvas.DrawText($"Ad Soyad: {personelAdi}", MarginLeft, currentY, signaturePaint);
-        currentY += 20;
+        currentY += 15;  // 20'den 15'e düşürdük
         canvas.DrawText("İmza:", MarginLeft, currentY, signaturePaint);
         canvas.DrawLine(MarginLeft + 40, currentY + 2, MarginLeft + 230, currentY + 2, linePaint);
-        currentY += 40;
+        currentY += 25;  // 40'tan 25'e düşürdük
     }
 
     private void AddFooter(TbFirma firma)
@@ -335,9 +338,9 @@ public class PdfService
         float barkodWidth = footerPaint.MeasureText(barkodText);
         float contentWidth = PageWidth - MarginLeft - MarginRight;
         canvas.DrawText(belgeNo, MarginLeft + (contentWidth - belgeNoWidth) / 2, currentY, footerPaint);
-        currentY += 15;
+        currentY += 12;  // 15'ten 12'ye düşürdük
         canvas.DrawText(dijitalText, MarginLeft + (contentWidth - dijitalWidth) / 2, currentY, footerPaint);
-        currentY += 15;
+        currentY += 12;  // 15'ten 12'ye düşürdük
         canvas.DrawText(barkodText, MarginLeft + (contentWidth - barkodWidth) / 2, currentY, footerPaint);
     }
 }
