@@ -88,7 +88,8 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh Style="display:none;"><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.nStokID)">Stok Id</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sKodu)">Stok Kodu / Barkod</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sBarkod)">Barkod</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sAciklama)">Stok Adı</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.lMevcut)">Mevcut</MudTableSortLabel></MudTh>
         @* <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x => x.sBirimCinsi2)">Birim</MudTableSortLabel></MudTh>*@
@@ -108,13 +109,8 @@
     <RowTemplate>
       
         <MudTd Style="display:none;" DataLabel="Stok ID">@context.nStokID</MudTd>
-        <MudTd DataLabel="Stok Kodu / Barkod">
-            @context.sKodu
-            @if (!string.IsNullOrEmpty(context.sBarkod))
-            {
-                <br /><span style="font-size: 0.85em; color: #666;">@context.sBarkod</span>
-            }
-        </MudTd>
+        <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
+        <MudTd DataLabel="Barkod">@context.sBarkod</MudTd>
         <MudTd DataLabel="Stok Adı">@context.sAciklama</MudTd>
         <MudTd DataLabel="Mevcut">@context.lMevcut</MudTd>
         @*<MudTd DataLabel="Birim">@context.sBirimCinsi2</MudTd>*@
