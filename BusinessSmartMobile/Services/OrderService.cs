@@ -200,7 +200,7 @@ namespace BusinessSmartMobile.Services
                     (tbf, errorMessage) = await GetBp(nFirmaId);
                     (tbpg, errorMessage) = await GetParamGenel();
                     int siparisId = await response.Content.ReadFromJsonAsync<int>();
-                    var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI);
+                    var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI, siparisAciklamasi);
                     SavePdfToFile(pdfBytes, "Siparis.pdf");
                     return "OK";
                 }
@@ -222,10 +222,24 @@ namespace BusinessSmartMobile.Services
                 var pdfService = new PdfService();
                 TbFirma tbf = new TbFirma();
                 TbParamGenel tbpg = new TbParamGenel();
+                TbSiparisAciklamasi siparisAciklamasi = new TbSiparisAciklamasi();
                 string errorMessage = "";
                 (tbf, errorMessage) = await GetBpUsingOrder(siparisId.ToString());
                 (tbpg, errorMessage) = await GetParamGenel();
-                var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI);
+                
+                // Sipariş detaylarından açıklama bilgilerini al
+                var (orderDetails, message) = await GetOrderDetails(siparisId.ToString(), _authService.Auth.sSaticiRumuzu);
+                if (orderDetails != null && orderDetails.Any())
+                {
+                    var firstOrder = orderDetails.First();
+                    siparisAciklamasi.sAciklama1 = firstOrder.sAciklama1 ?? "";
+                    siparisAciklamasi.sAciklama2 = firstOrder.sAciklama2 ?? "";
+                    siparisAciklamasi.sAciklama3 = firstOrder.sAciklama3 ?? "";
+                    siparisAciklamasi.sAciklama4 = firstOrder.sAciklama4 ?? "";
+                    siparisAciklamasi.sAciklama5 = firstOrder.sAciklama5 ?? "";
+                }
+                
+                var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI, siparisAciklamasi);
                 SavePdfToFile(pdfBytes, "Siparis.pdf");
                 return "OK";
             }

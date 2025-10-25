@@ -22,6 +22,12 @@
     public string sSaticiRumuzu { get; set; } 
     public string sDepo { get; set; } 
     public double lFiyati { get; set; }
+    
+    public string sAciklama1 { get; set; }
+    public string sAciklama2 { get; set; }
+    public string sAciklama3 { get; set; }
+    public string sAciklama4 { get; set; }
+    public string sAciklama5 { get; set; }
 
     public string opt { get; set; } = ">";
     public DateTime? beginDate { get; set; } = DateTime.Today;
