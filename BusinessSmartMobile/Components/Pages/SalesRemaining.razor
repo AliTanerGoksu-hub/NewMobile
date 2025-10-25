@@ -42,10 +42,8 @@
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.sStokAciklama)">Stok Adı</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.miktar)">Miktar</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.envanter)">Envanter</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.mevcut)">Mevcut</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.Bekleyen)">Bekleyen</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.NetMevcut)">Net Mevcut</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.siparis)">Sipariş</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.sonAlisTarihi)">Son Alış Tarihi</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<TbSalesRemaining, object>(x=>x.sonAlisMiktari)">Son Alış Miktarı</MudTableSortLabel></MudTh>
@@ -56,10 +54,8 @@
         <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
         <MudTd DataLabel="Stok Adı">@context.sStokAciklama</MudTd>
         <MudTd DataLabel="Miktar" Style="text-align:right">@context.miktar.ToString("N2")</MudTd>
-        <MudTd DataLabel="Envanter" Style="text-align:right">@context.envanter.ToString("N2")</MudTd>
         <MudTd DataLabel="Mevcut" Style="text-align:right">@context.mevcut.ToString("N2")</MudTd>
         <MudTd DataLabel="Bekleyen" Style="text-align:right">@context.Bekleyen.ToString("N2")</MudTd>
-        <MudTd DataLabel="Net Mevcut" Style="text-align:right">@context.NetMevcut.ToString("N2")</MudTd>
         <MudTd DataLabel="Sipariş" Style="text-align:right">@context.siparis.ToString("N2")</MudTd>
         <MudTd DataLabel="Son Alış Tarihi">
             @if (!string.IsNullOrEmpty(@context.sonAlisTarihi?.ToString()))
