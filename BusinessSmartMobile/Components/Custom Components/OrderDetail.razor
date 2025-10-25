@@ -199,9 +199,21 @@
                 SelectedBirimCinsi = unitList.FirstOrDefault()?.sBirimCinsi
             });
         }
+        
         int nSiparisId = orderDetail.FirstOrDefault().nSiparisID;
+        
+        // orderDetail'den açıklama bilgilerini al
+        var firstOrder = orderDetail.FirstOrDefault();
+        TbSiparisAciklamasi siparisAciklamasi = new TbSiparisAciklamasi
+        {
+            sAciklama1 = firstOrder?.sAciklama1 ?? "",
+            sAciklama2 = firstOrder?.sAciklama2 ?? "",
+            sAciklama3 = firstOrder?.sAciklama3 ?? "",
+            sAciklama4 = firstOrder?.sAciklama4 ?? "",
+            sAciklama5 = firstOrder?.sAciklama5 ?? ""
+        };
 
-        await OrderService.RePrintPDF(SecilenUrunler, nSiparisId);
+        await OrderService.RePrintPDF(SecilenUrunler, nSiparisId, siparisAciklamasi);
     }
     private void Cancel()
     {

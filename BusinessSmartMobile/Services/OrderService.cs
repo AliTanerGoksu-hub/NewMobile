@@ -215,42 +215,48 @@ namespace BusinessSmartMobile.Services
                 return $"Uyarı: {ex.Message}";
             }
         }
-        public async Task<string> RePrintPDF(List<UrunSecimi> yeniSiparis, int siparisId)
+        public async Task<string> RePrintPDF(List<UrunSecimi> yeniSiparis, int siparisId, TbSiparisAciklamasi siparisAciklamasi = null)
         {
             try
             {
                 var pdfService = new PdfService();
                 TbFirma tbf = new TbFirma();
                 TbParamGenel tbpg = new TbParamGenel();
-                TbSiparisAciklamasi siparisAciklamasi = new TbSiparisAciklamasi();
                 string errorMessage = "";
                 (tbf, errorMessage) = await GetBpUsingOrder(siparisId.ToString());
                 (tbpg, errorMessage) = await GetParamGenel();
                 
-                // Sipariş detaylarından açıklama bilgilerini al
-                var (orderDetails, message) = await GetOrderDetails(siparisId.ToString(), _authService.Auth.sSaticiRumuzu);
-                
-                Console.WriteLine($"DEBUG: OrderDetails Count: {orderDetails?.Count ?? 0}");
-                
-                if (orderDetails != null && orderDetails.Any())
+                // Eğer parametre olarak gelmediyse, sipariş detaylarından açıklama bilgilerini al
+                if (siparisAciklamasi == null)
                 {
-                    var firstOrder = orderDetails.First();
-                    Console.WriteLine($"DEBUG: sAciklama1: '{firstOrder.sAciklama1}'");
-                    Console.WriteLine($"DEBUG: sAciklama2: '{firstOrder.sAciklama2}'");
-                    Console.WriteLine($"DEBUG: sAciklama3: '{firstOrder.sAciklama3}'");
+                    siparisAciklamasi = new TbSiparisAciklamasi();
+                    var (orderDetails, message) = await GetOrderDetails(siparisId.ToString(), _authService.Auth.sSaticiRumuzu);
                     
-                    siparisAciklamasi.sAciklama1 = firstOrder.sAciklama1 ?? "";
-                    siparisAciklamasi.sAciklama2 = firstOrder.sAciklama2 ?? "";
-                    siparisAciklamasi.sAciklama3 = firstOrder.sAciklama3 ?? "";
-                    siparisAciklamasi.sAciklama4 = firstOrder.sAciklama4 ?? "";
-                    siparisAciklamasi.sAciklama5 = firstOrder.sAciklama5 ?? "";
+                    Console.WriteLine($"DEBUG: OrderDetails Count: {orderDetails?.Count ?? 0}");
                     
-                    Console.WriteLine($"DEBUG: siparisAciklamasi.sAciklama2 set to: '{siparisAciklamasi.sAciklama2}'");
-                    Console.WriteLine($"DEBUG: siparisAciklamasi.sAciklama3 set to: '{siparisAciklamasi.sAciklama3}'");
+                    if (orderDetails != null && orderDetails.Any())
+                    {
+                        var firstOrder = orderDetails.First();
+                        Console.WriteLine($"DEBUG: sAciklama1: '{firstOrder.sAciklama1}'");
+                        Console.WriteLine($"DEBUG: sAciklama2: '{firstOrder.sAciklama2}'");
+                        Console.WriteLine($"DEBUG: sAciklama3: '{firstOrder.sAciklama3}'");
+                        
+                        siparisAciklamasi.sAciklama1 = firstOrder.sAciklama1 ?? "";
+                        siparisAciklamasi.sAciklama2 = firstOrder.sAciklama2 ?? "";
+                        siparisAciklamasi.sAciklama3 = firstOrder.sAciklama3 ?? "";
+                        siparisAciklamasi.sAciklama4 = firstOrder.sAciklama4 ?? "";
+                        siparisAciklamasi.sAciklama5 = firstOrder.sAciklama5 ?? "";
+                    }
+                    else
+                    {
+                        Console.WriteLine("DEBUG: No order details found!");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("DEBUG: No order details found!");
+                    Console.WriteLine($"DEBUG: siparisAciklamasi passed as parameter");
+                    Console.WriteLine($"DEBUG: sAciklama2: '{siparisAciklamasi.sAciklama2}'");
+                    Console.WriteLine($"DEBUG: sAciklama3: '{siparisAciklamasi.sAciklama3}'");
                 }
                 
                 var pdfBytes = pdfService.CreateOrderPdf(yeniSiparis, tbf, tbpg, siparisId, _authService.Auth.PERSONELADI, siparisAciklamasi);
