@@ -199,13 +199,13 @@ namespace BusinessSmartMobile.Services
                 return (new List<TbSatici>(), $"Veri çekme hatası: {ex.Message}");
             }
         }
-        public async Task<(List<TbDeliveryReport>, string)> GetDeliveryReport(string startDate, string endDate, string sSaticiRumuzu = null, string sDepo = null, string type = "1")
+        public async Task<(List<TbDeliveryReport>, string)> GetDeliveryReport(string startDate, string endDate, string sSaticiRumuzu = null, string sDepo = null, string type = "1", string customerName = "", string customerCode = "")
         {
             try
             {
                 sDepo = sDepo ?? _authService.Auth?.sDepo ?? throw new Exception("Depo bulunamadı.");
 
-                var response = await _httpClient.GetAsync(_uri + $"api/Reports/DeliveryReport?startDate={startDate}&endDate={endDate}&sSaticiRumuzu={sSaticiRumuzu}&sDepo={sDepo}&type={type}");
+                var response = await _httpClient.GetAsync(_uri + $"api/Reports/DeliveryReport?startDate={startDate}&endDate={endDate}&sSaticiRumuzu={sSaticiRumuzu}&sDepo={sDepo}&type={type}&customerName={customerName}&customerCode={customerCode}");
 
                 if (response.IsSuccessStatusCode)
                 {

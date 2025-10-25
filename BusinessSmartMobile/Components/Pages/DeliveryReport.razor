@@ -209,7 +209,9 @@
                 sDepo = filter.Warehouse;
                 sSaticiRumuzu = filter.Vendor;
                 type = filter.Type;
-                LoadList(startDateStr, endDateStr, sSaticiRumuzu, sDepo, type);
+                string customerName = filter.CustomerName ?? "";
+                string customerCode = filter.CustomerCode ?? "";
+                LoadList(startDateStr, endDateStr, sSaticiRumuzu, sDepo, type, customerName, customerCode);
 
             }
         }
@@ -223,13 +225,13 @@
 
 
 
-    private async void LoadList(string startDate, string endDate, string sSaticiRumuzu, string sDepo, string type)
+    private async void LoadList(string startDate, string endDate, string sSaticiRumuzu, string sDepo, string type, string customerName = "", string customerCode = "")
     {
 
 
         try
         {
-            (list, apiMessage) = await ReportsService.GetDeliveryReport(startDate, endDate, sSaticiRumuzu, sDepo, type);
+            (list, apiMessage) = await ReportsService.GetDeliveryReport(startDate, endDate, sSaticiRumuzu, sDepo, type, customerName, customerCode);
             _loading = true;
             _error = false;
 

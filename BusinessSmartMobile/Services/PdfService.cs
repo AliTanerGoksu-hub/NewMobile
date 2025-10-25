@@ -127,7 +127,7 @@ public class PdfService
             x => x.Urun.sAciklama.Length > 53 ? x.Urun.sAciklama[..53] + "..." : x.Urun.sAciklama,
             x => x.Miktar.ToString(),
             x => x.Urun.nBirimCarpan.ToString(),
-            x => $"₺{x.Urun.lFiyat1:N2}"
+            x => $"{x.Urun.lFiyat1:N2} ₺"
         };
 
         if (hasDiscount)
@@ -137,15 +137,15 @@ public class PdfService
             valueSelectors.AddRange(new List<Func<UrunSecimi, string>>
             {
                 x => x.Urun.nIskontoYuzdesi > 0 ? $"%{x.Urun.nIskontoYuzdesi:N0}" : "-",
-                x => x.Urun.nIskontoYuzdesi > 0 ? $"₺{(x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)):N2}" : $"₺{x.Urun.lFiyat1:N2}",
-                x => $"₺{x.Miktar * (x.Urun.nIskontoYuzdesi > 0 ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)) : x.Urun.lFiyat1):N2}"
+                x => x.Urun.nIskontoYuzdesi > 0 ? $"{(x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)):N2} ₺" : $"{x.Urun.lFiyat1:N2} ₺",
+                x => $"{x.Miktar * (x.Urun.nIskontoYuzdesi > 0 ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)) : x.Urun.lFiyat1):N2} ₺"
             });
         }
         else
         {
             headers.Add("TOPLAM");
             columnWidths.Add(0.22f);
-            valueSelectors.Add(x => $"₺{x.Miktar * x.Urun.lFiyat1:N2}");
+            valueSelectors.Add(x => $"{x.Miktar * x.Urun.lFiyat1:N2} ₺");
         }
 
         float contentWidth = PageWidth - MarginLeft - MarginRight;
@@ -178,7 +178,10 @@ public class PdfService
 
             for (int i = 0; i < headers.Count; i++)
             {
-                string text = valueSelectors[i](item).Replace("□", "");
+                string text = valueSelectors[i](item);
+                // Tüm checkbox karakterlerini temizle
+                text = text.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "");
+                
                 float columnWidth = (i < headers.Count - 1)
                     ? columnPositions[i + 1] - columnPositions[i]
                     : (PageWidth - MarginRight) - columnPositions[i];
