@@ -176,5 +176,12 @@ namespace BusinessSmartMobile.Services
             
             return value.ToString() ?? "";
         }
+
+        public void SavePdfToFile(byte[] pdfBytes, string fileName)
+        {
+            var filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            File.WriteAllBytes(filePath, pdfBytes);
+            Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(filePath) });
+        }
     }
 }

@@ -5,7 +5,6 @@
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
-@inject IJSRuntime JSRuntime
 @inject AuthService _authService
 @using System.Globalization;
 
@@ -350,8 +349,8 @@
 
             var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
             
-            await JSRuntime.InvokeVoidAsync("saveAsFile", "OdenecekCek.pdf", Convert.ToBase64String(pdfBytes));
-            Snackbar.Add("Rapor PDF olarak indirildi!", Severity.Success);
+            ReportPdfService.SavePdfToFile(pdfBytes, "OdenecekCek.pdf");
+            Snackbar.Add("Rapor açıldı!", Severity.Success);
         }
         catch (Exception ex)
         {
