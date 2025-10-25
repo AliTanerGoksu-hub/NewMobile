@@ -16,5 +16,7 @@ namespace BusinessSmartMobile.Models
         public string? Store { get; set; }
         public string? Class { get; set; }
         public string? Type { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerCode { get; set; }
     }
 }

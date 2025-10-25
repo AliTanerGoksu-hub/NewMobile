@@ -6,7 +6,7 @@
 @inject NavigationManager Navigation
 
 <!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); margin-top: 0; padding-top: 16px;">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding-top: 16px; margin-top: 0;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
             <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
@@ -88,10 +88,9 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh Style="display:none;"><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.nStokID)">Stok Id</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sKodu)">Stok Kodu / Barkod</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sAciklama)">Stok Adı</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.lMevcut)">Mevcut</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sBarkod)">Barkod</MudTableSortLabel></MudTh>
         @* <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x => x.sBirimCinsi2)">Birim</MudTableSortLabel></MudTh>*@
         @*<MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x=>x.sBirimCinsi2)">Birim 2</MudTableSortLabel></MudTh>*@
         <MudTh><MudTableSortLabel SortBy="new Func<Stock, object>(x => x.nBirimCarpan)">Koli İçi</MudTableSortLabel></MudTh>
@@ -109,16 +108,21 @@
     <RowTemplate>
       
         <MudTd Style="display:none;" DataLabel="Stok ID">@context.nStokID</MudTd>
-        <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
+        <MudTd DataLabel="Stok Kodu / Barkod">
+            @context.sKodu
+            @if (!string.IsNullOrEmpty(context.sBarkod))
+            {
+                <br /><span style="font-size: 0.85em; color: #666;">@context.sBarkod</span>
+            }
+        </MudTd>
         <MudTd DataLabel="Stok Adı">@context.sAciklama</MudTd>
         <MudTd DataLabel="Mevcut">@context.lMevcut</MudTd>
-        <MudTd DataLabel="Barkod">@context.sBarkod</MudTd>
         @*<MudTd DataLabel="Birim">@context.sBirimCinsi2</MudTd>*@
         @* <MudTd DataLabel="Birim 2">@context.sBirimCinsi2</MudTd>*@
         <MudTd DataLabel="Koli İçi">@context.nBirimCarpan</MudTd>
         @*<MudTd DataLabel="Mevcut 2">@context.lMevcut2</MudTd>*@
         @*<MudTd DataLabel="Fiyat">@((double.Parse(context.lFiyat, System.Globalization.CultureInfo.InvariantCulture)).ToString("F2", System.Globalization.CultureInfo.InvariantCulture)) </MudTd>*@
-        <MudTd DataLabel="Fiyat">@context.lFiyat1 </MudTd>
+        <MudTd DataLabel="Fiyat" Style="text-align:right">@context.lFiyat1.ToString("N0") ₺</MudTd>
         @if (sizeOpen == "1")
         {
             <MudTd DataLabel="Beden">@context.sBeden</MudTd>

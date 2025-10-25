@@ -26,14 +26,14 @@ public class PdfService
     private SKDocument document;
     private SKCanvas canvas;
 
-    public byte[] CreateOrderPdf(List<UrunSecimi> order, TbFirma firma, TbParamGenel paramGenel, int siparisId, string personelAdi)
+    public byte[] CreateOrderPdf(List<UrunSecimi> order, TbFirma firma, TbParamGenel paramGenel, int siparisId, string personelAdi, TbSiparisAciklamasi siparisAciklama = null)
     {
         using var stream = new MemoryStream();
         document = SKDocument.CreatePdf(stream);
         canvas = document.BeginPage(PageWidth, PageHeight);
         currentY = MarginTop;
         AddHeader(paramGenel);
-        AddCompanyAndOrderInfo(firma, siparisId);
+        AddCompanyAndOrderInfo(firma, siparisId, siparisAciklama);
         AddOrderDetailsTable(order);
         AddTotals(order);
         AddSignatureAreas(personelAdi);
@@ -62,7 +62,7 @@ public class PdfService
         currentY += 30;
     }
 
-    private void AddCompanyAndOrderInfo(TbFirma firma, int siparisId)
+    private void AddCompanyAndOrderInfo(TbFirma firma, int siparisId, TbSiparisAciklamasi siparisAciklama = null)
     {
         using var titlePaint = new SKPaint { Color = PrimaryColor, TextSize = 11, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
         using var infoPaint = new SKPaint { Color = TextGray, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
@@ -88,7 +88,24 @@ public class PdfService
         canvas.DrawRect(row2Rect, borderPaint);
         canvas.DrawLine(MarginLeft + halfWidth, currentY - 15, MarginLeft + halfWidth, currentY + 10, borderPaint);
         canvas.DrawText($"Vergi Dairesi: {firma.sVergiDairesi}", MarginLeft + 5, currentY, infoPaint);
-        canvas.DrawText($"Vergi No: {firma.sVergiNo}", MarginLeft + halfWidth + 5, currentY, infoPaint);
+        
+        // Vade bilgisi (sAciklama2) ekleniyor
+        string vadeText = siparisAciklama != null && !string.IsNullOrEmpty(siparisAciklama.sAciklama2) 
+            ? $"Vade: {siparisAciklama.sAciklama2}" 
+            : "";
+        canvas.DrawText(vadeText, MarginLeft + halfWidth + 5, currentY, infoPaint);
+        currentY += cellHeight;
+        
+        var row3Rect = new SKRect(MarginLeft, currentY - 15, PageWidth - MarginRight, currentY + 10);
+        canvas.DrawRect(row3Rect, borderPaint);
+        canvas.DrawLine(MarginLeft + halfWidth, currentY - 15, MarginLeft + halfWidth, currentY + 10, borderPaint);
+        canvas.DrawText($"Vergi No: {firma.sVergiNo}", MarginLeft + 5, currentY, infoPaint);
+        
+        // Sipariş Notu (sAciklama3) ekleniyor
+        string notText = siparisAciklama != null && !string.IsNullOrEmpty(siparisAciklama.sAciklama3) 
+            ? $"Sipariş Notu: {siparisAciklama.sAciklama3}" 
+            : "";
+        canvas.DrawText(notText, MarginLeft + halfWidth + 5, currentY, infoPaint);
         currentY += 35;
     }
 
@@ -115,10 +132,11 @@ public class PdfService
 
         if (hasDiscount)
         {
-            headers.AddRange(new[] { "İSKONTOLU\nFİYAT", "TOPLAM" });
-            columnWidths.AddRange(new[] { 0.08f, 0.14f });
+            headers.AddRange(new[] { "İSKONTO\nORANI", "İSKONTOLU\nFİYAT", "TOPLAM" });
+            columnWidths.AddRange(new[] { 0.06f, 0.08f, 0.08f });
             valueSelectors.AddRange(new List<Func<UrunSecimi, string>>
             {
+                x => x.Urun.nIskontoYuzdesi > 0 ? $"%{x.Urun.nIskontoYuzdesi:N0}" : "-",
                 x => x.Urun.nIskontoYuzdesi > 0 ? $"₺{(x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)):N2}" : $"₺{x.Urun.lFiyat1:N2}",
                 x => $"₺{x.Miktar * (x.Urun.nIskontoYuzdesi > 0 ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)) : x.Urun.lFiyat1):N2}"
             });

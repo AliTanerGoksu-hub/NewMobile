@@ -152,7 +152,7 @@
             <MudText Class="font-weight-bold">@urun.Urun.sAciklama</MudText>
         </MudTd>
         <MudTd>
-            <MudText Color="Color.Primary">@urun.Urun.lFiyat1 ₺</MudText>
+            <MudText Color="Color.Primary">@urun.Urun.lFiyat1.ToString("N0") ₺</MudText>
         </MudTd>
         <MudTd>
             <MudNumericField T="double" @bind-Value="urun.Miktar" Min="1" Style="width: 100px;" Label="Miktar" />

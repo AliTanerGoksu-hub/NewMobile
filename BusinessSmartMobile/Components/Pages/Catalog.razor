@@ -8,7 +8,7 @@
 @inject ISnackbar Snackbar
 
 <!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 0; padding-top: 0; position: sticky; top: 0; z-index: 1000;">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding-top: 16px; margin-top: 0; position: sticky; top: 64px; z-index: 1000;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
             <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
@@ -85,7 +85,7 @@
                             @item.sAciklama
                         </MudText>
                         <MudText Typo="Typo.h6" Style="color: #667eea; font-weight: 600; margin-top: 8px;">
-                            ₺@item.lFiyat1.ToString("N2")
+                            @item.lFiyat1.ToString("N0") ₺
                         </MudText>
                         <div style="display: flex; gap: 8px; margin-top: 8px;">
                             <div class="badge-pill" style="@((item.lMevcut == 0) ? "background: #fee; color: #c53030;" : "background: #e0e7ff; color: #4c51bf;")">

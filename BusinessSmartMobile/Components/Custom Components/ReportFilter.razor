@@ -3,6 +3,11 @@
 @inject ReportsService ReportsService
 <MudDialog>
     <DialogContent>
+        @if (FilterOptions.ShowCustomerSearch)
+        {
+            <MudTextField Label="Müşteri Adı" @bind-Value="Filter.CustomerName" Variant="Variant.Outlined" />
+            <MudTextField Label="Müşteri Kodu" @bind-Value="Filter.CustomerCode" Variant="Variant.Outlined" />
+        }
         @if (FilterOptions.ShowType)
         {
             <MudSelect T="string" Label="Stok Mevcudu" @bind-Value="Filter.Type">

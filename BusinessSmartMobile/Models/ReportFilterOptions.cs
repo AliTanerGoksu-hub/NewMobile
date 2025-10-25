@@ -13,6 +13,7 @@ namespace BusinessSmartMobile.Models
         public bool ShowStore { get; set; }
         public bool ShowClass { get; set; }
         public bool ShowType { get; set; }
+        public bool ShowCustomerSearch { get; set; }
     }
     
 }

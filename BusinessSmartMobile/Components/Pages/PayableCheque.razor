@@ -61,7 +61,7 @@
         </MudTd>
         <MudTd DataLabel="Alan Hesap">@context.sAlanFirmaAciklama</MudTd>
         <MudTd DataLabel="Banka">@context.sBankaAciklama</MudTd>
-        <MudTd DataLabel="Döviz Tutar" Style="text-align:right">@context.lDovizMiktari1</MudTd>
+        <MudTd DataLabel="Döviz Tutar" Style="text-align:right">@context.lDovizMiktari1.ToString("N0") ₺</MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager RowsPerPageString="Gösterilecek Satır" />
@@ -102,7 +102,7 @@
                     </MudText>
                     <MudText Typo="Typo.body1"
                              Style="font-weight: 600; margin: 0; color: var(--mud-palette-success);">
-                        @SecilenTutar.ToString("N2")
+                        @SecilenTutar.ToString("N0") ₺
                     </MudText>
                 </div>
             </div>

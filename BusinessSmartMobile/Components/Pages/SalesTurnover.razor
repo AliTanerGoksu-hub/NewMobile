@@ -49,11 +49,11 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Periyod">@context.periyod</MudTd>
-        <MudTd DataLabel="Miktar" Style="text-align:right">@context.miktar.ToString("N2")</MudTd>
-        <MudTd DataLabel="Tutar" Style="text-align:right">@context.tutar.ToString("N2")</MudTd>
-        <MudTd DataLabel="İskonto" Style="text-align:right">@context.iskonto.ToString("N2")</MudTd>
-        <MudTd DataLabel="Toplam KDV" Style="text-align:right">@context.toplamKdv.ToString("N2")</MudTd>
-        <MudTd DataLabel="Net Ciro" Style="text-align:right">@context.netCiro.ToString("N2")</MudTd>
+        <MudTd DataLabel="Miktar" Style="text-align:right">@context.miktar.ToString("N0")</MudTd>
+        <MudTd DataLabel="Tutar" Style="text-align:right">@context.tutar.ToString("N0") ₺</MudTd>
+        <MudTd DataLabel="İskonto" Style="text-align:right">@context.iskonto.ToString("N0") ₺</MudTd>
+        <MudTd DataLabel="Toplam KDV" Style="text-align:right">@context.toplamKdv.ToString("N0") ₺</MudTd>
+        <MudTd DataLabel="Net Ciro" Style="text-align:right">@context.netCiro.ToString("N0") ₺</MudTd>
         <MudTd DataLabel="Müşteri Sayısı" Style="text-align:right">@context.musteriSayisi.ToString("N2")</MudTd>
     </RowTemplate>
     <PagerContent>

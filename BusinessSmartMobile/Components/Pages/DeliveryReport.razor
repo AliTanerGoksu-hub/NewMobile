@@ -8,7 +8,7 @@
 @using System.Globalization;
 
 <!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); margin-top: 0; padding-top: 16px;">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding-top: 16px; margin-top: 0;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
             <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
@@ -113,13 +113,13 @@
         <MudTd DataLabel="Ürün Kodu">@context.sKodu</MudTd>
         <MudTd DataLabel="Ürün Açıklama">@context.sAciklama</MudTd>
         @* <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktar.ToString("N2")</MudTd> *@
-        <MudTd DataLabel="Sipariş Miktarı" Style="text-align:right">@context.lMiktari.ToString("N2")</MudTd>
-        <MudTd DataLabel="Koli İçi" Style="text-align:right">@context.nBirimCarpan.ToString("N2")</MudTd>
-        <MudTd DataLabel="Mevcut" Style="text-align:right">@context.lMevcut.ToString("N2")</MudTd>
-        <MudTd DataLabel="Sevkiyat" Style="text-align:right">@context.lSevkiyat.ToString("N2")</MudTd>
+        <MudTd DataLabel="Sipariş Miktarı" Style="text-align:right">@context.lMiktari.ToString("N0")</MudTd>
+        <MudTd DataLabel="Koli İçi" Style="text-align:right">@context.nBirimCarpan.ToString("N0")</MudTd>
+        <MudTd DataLabel="Mevcut" Style="text-align:right">@context.lMevcut.ToString("N0")</MudTd>
+        <MudTd DataLabel="Sevkiyat" Style="text-align:right">@context.lSevkiyat.ToString("N0")</MudTd>
         @* <MudTd DataLabel="Bekleyen" Style="text-align:right">@context.lBekleyen.ToString("N2")</MudTd> *@
         <MudTd DataLabel="Kalan" Style="text-align:right">
-            @context.lKalan.ToString("N2")
+            @context.lKalan.ToString("N0")
             @* <MudTd DataLabel="Teslim Tarihi">
             @if (!string.IsNullOrEmpty(@context.dteTeslimTarihi?.ToString()))
             {
@@ -181,7 +181,8 @@
                     ShowStore = false,
                     ShowClass = false,
                     ShowWarehouse = whsAndVendorPerm,
-                    ShowType = true
+                    ShowType = true,
+                    ShowCustomerSearch = true
                 },
                 ["Filter"] = new ReportFilters
                 {
