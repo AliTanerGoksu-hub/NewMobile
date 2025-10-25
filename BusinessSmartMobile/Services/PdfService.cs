@@ -122,12 +122,12 @@ public class PdfService
         List<float> columnWidths = new() { 0.14f, 0.10f, 0.30f, 0.07f, 0.07f, 0.10f };
         List<Func<UrunSecimi, string>> valueSelectors = new()
         {
-            x => x.Urun.sKodu,
-            x => x.Urun.sBarkod,
-            x => x.Urun.sAciklama.Length > 53 ? x.Urun.sAciklama[..53] + "..." : x.Urun.sAciklama,
-            x => x.Miktar.ToString(),
-            x => x.Urun.nBirimCarpan.ToString(),
-            x => $"{x.Urun.lFiyat1:N2} ₺"
+            x => x.Urun.sKodu.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+            x => x.Urun.sBarkod.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+            x => (x.Urun.sAciklama.Length > 53 ? x.Urun.sAciklama[..53] + "..." : x.Urun.sAciklama).Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+            x => x.Miktar.ToString().Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+            x => x.Urun.nBirimCarpan.ToString().Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+            x => $"{x.Urun.lFiyat1:N2} ₺".Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "")
         };
 
         if (hasDiscount)
@@ -136,16 +136,16 @@ public class PdfService
             columnWidths.AddRange(new[] { 0.06f, 0.08f, 0.08f });
             valueSelectors.AddRange(new List<Func<UrunSecimi, string>>
             {
-                x => x.Urun.nIskontoYuzdesi > 0 ? $"%{x.Urun.nIskontoYuzdesi:N0}" : "-",
-                x => x.Urun.nIskontoYuzdesi > 0 ? $"{(x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)):N2} ₺" : $"{x.Urun.lFiyat1:N2} ₺",
-                x => $"{x.Miktar * (x.Urun.nIskontoYuzdesi > 0 ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)) : x.Urun.lFiyat1):N2} ₺"
+                x => (x.Urun.nIskontoYuzdesi > 0 ? $"%{x.Urun.nIskontoYuzdesi:N0}" : "-").Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+                x => (x.Urun.nIskontoYuzdesi > 0 ? $"{(x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)):N2} ₺" : $"{x.Urun.lFiyat1:N2} ₺").Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""),
+                x => $"{x.Miktar * (x.Urun.nIskontoYuzdesi > 0 ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100)) : x.Urun.lFiyat1):N2} ₺".Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "")
             });
         }
         else
         {
             headers.Add("TOPLAM");
             columnWidths.Add(0.22f);
-            valueSelectors.Add(x => $"{x.Miktar * x.Urun.lFiyat1:N2} ₺");
+            valueSelectors.Add(x => $"{x.Miktar * x.Urun.lFiyat1:N2} ₺".Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", ""));
         }
 
         float contentWidth = PageWidth - MarginLeft - MarginRight;
