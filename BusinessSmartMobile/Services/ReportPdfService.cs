@@ -9,23 +9,38 @@ namespace BusinessSmartMobile.Services
         private SKDocument document;
         private SKCanvas canvas;
         private float currentY;
-        private const float PageWidth = 595;
-        private const float PageHeight = 842;
-        private const float MarginLeft = 40;
-        private const float MarginRight = 40;
+        private float PageWidth = 842; // A4 Landscape genişlik
+        private float PageHeight = 595; // A4 Landscape yükseklik
+        private const float MarginLeft = 30;
+        private const float MarginRight = 30;
         private const float MarginTop = 40;
+        private const float MarginBottom = 40;
         private static readonly SKColor PrimaryColor = SKColor.Parse("#2c3e50");
         private static readonly SKColor TextGray = SKColor.Parse("#6c757d");
 
-        public byte[] CreateReportPdf<T>(List<T> data, TbParamGenel paramGenel)
+        public byte[] CreateReportPdf<T>(List<T> data, TbParamGenel paramGenel, Dictionary<string, string> columns)
         {
+            // Kolon sayısına göre yönlendirme karar ver
+            bool useLandscape = columns.Count > 4;
+            
+            if (useLandscape)
+            {
+                PageWidth = 842;  // A4 Landscape
+                PageHeight = 595;
+            }
+            else
+            {
+                PageWidth = 595;  // A4 Portrait
+                PageHeight = 842;
+            }
+
             using var stream = new MemoryStream();
             document = SKDocument.CreatePdf(stream);
             canvas = document.BeginPage(PageWidth, PageHeight);
             currentY = MarginTop;
 
             AddHeader(paramGenel);
-            AddReportTable(data);
+            AddReportTable(data, columns);
             
             document.EndPage();
             document.Close();
@@ -51,22 +66,18 @@ namespace BusinessSmartMobile.Services
             currentY += 20;
         }
 
-        private void AddReportTable<T>(List<T> data)
+        private void AddReportTable<T>(List<T> data, Dictionary<string, string> columns)
         {
             if (data == null || !data.Any()) return;
 
-            using var headerPaint = new SKPaint { Color = SKColors.White, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
-            using var cellPaint = new SKPaint { Color = TextGray, TextSize = 8, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
+            using var headerPaint = new SKPaint { Color = SKColors.White, TextSize = 8, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
+            using var cellPaint = new SKPaint { Color = TextGray, TextSize = 7, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
             using var headerBgPaint = new SKPaint { Color = PrimaryColor, Style = SKPaintStyle.Fill };
-            using var borderPaint = new SKPaint { Color = SKColor.Parse("#dee2e6"), Style = SKPaintStyle.Stroke, StrokeWidth = 1 };
-
-            var properties = typeof(T).GetProperties()
-                .Where(p => p.PropertyType.IsPrimitive || p.PropertyType == typeof(string) || p.PropertyType == typeof(decimal) || p.PropertyType == typeof(double) || p.PropertyType == typeof(DateTime))
-                .ToList();
+            using var borderPaint = new SKPaint { Color = SKColor.Parse("#dee2e6"), Style = SKPaintStyle.Stroke, StrokeWidth = 0.5f };
 
             float contentWidth = PageWidth - MarginLeft - MarginRight;
-            float columnWidth = contentWidth / properties.Count;
-            float rowHeight = 20;
+            float columnWidth = contentWidth / columns.Count;
+            float rowHeight = 18;
 
             // Header
             var headerRect = new SKRect(MarginLeft, currentY, PageWidth - MarginRight, currentY + rowHeight);
@@ -74,10 +85,13 @@ namespace BusinessSmartMobile.Services
             canvas.DrawRect(headerRect, borderPaint);
 
             float xPos = MarginLeft;
-            foreach (var prop in properties)
+            foreach (var column in columns)
             {
-                string headerText = GetDisplayName(prop.Name);
-                canvas.DrawText(headerText, xPos + 5, currentY + 14, headerPaint);
+                string headerText = column.Value;
+                // Metni ortala
+                float textWidth = headerPaint.MeasureText(headerText);
+                float textX = xPos + (columnWidth - textWidth) / 2;
+                canvas.DrawText(headerText, textX, currentY + 12, headerPaint);
                 canvas.DrawLine(xPos, currentY, xPos, currentY + rowHeight, borderPaint);
                 xPos += columnWidth;
             }
@@ -88,7 +102,7 @@ namespace BusinessSmartMobile.Services
             bool alternate = false;
             foreach (var item in data)
             {
-                if (currentY > PageHeight - 100)
+                if (currentY > PageHeight - MarginBottom - 30)
                 {
                     document.EndPage();
                     canvas = document.BeginPage(PageWidth, PageHeight);
@@ -105,22 +119,29 @@ namespace BusinessSmartMobile.Services
                 canvas.DrawRect(rowRect, borderPaint);
 
                 xPos = MarginLeft;
-                foreach (var prop in properties)
+                foreach (var column in columns)
                 {
-                    var value = prop.GetValue(item);
-                    string text = FormatValue(value);
-                    
-                    text = text?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "";
-                    
-                    float textWidth = cellPaint.MeasureText(text);
-                    float textX = xPos + 5;
-                    
-                    if (value != null && (value.GetType() == typeof(int) || value.GetType() == typeof(double) || value.GetType() == typeof(decimal) || value.GetType() == typeof(float)))
+                    var property = typeof(T).GetProperty(column.Key);
+                    if (property != null)
                     {
-                        textX = xPos + columnWidth - textWidth - 5;
+                        var value = property.GetValue(item);
+                        string text = FormatValue(value, property.Name);
+                        
+                        // Metni kırp eğer çok uzunsa
+                        float maxWidth = columnWidth - 4;
+                        text = TruncateText(text, cellPaint, maxWidth);
+                        
+                        float textX = xPos + 2;
+                        
+                        // Sayıları sağa hizala
+                        if (value != null && IsNumericType(value.GetType()))
+                        {
+                            float textWidth = cellPaint.MeasureText(text);
+                            textX = xPos + columnWidth - textWidth - 2;
+                        }
+                        
+                        canvas.DrawText(text, textX, currentY + 11, cellPaint);
                     }
-                    
-                    canvas.DrawText(text, textX, currentY + 14, cellPaint);
                     canvas.DrawLine(xPos, currentY, xPos, currentY + rowHeight, borderPaint);
                     xPos += columnWidth;
                 }
@@ -130,49 +151,60 @@ namespace BusinessSmartMobile.Services
             }
         }
 
-        private string GetDisplayName(string propertyName)
+        private bool IsNumericType(Type type)
         {
-            var displayNames = new Dictionary<string, string>
-            {
-                { "sKodu", "Kodu" },
-                { "sAciklama", "Açıklama" },
-                { "sStokAciklama", "Stok Adı" },
-                { "sFirmaAciklama", "Firma" },
-                { "miktar", "Miktar" },
-                { "mevcut", "Mevcut" },
-                { "Bekleyen", "Bekleyen" },
-                { "siparis", "Sipariş" },
-                { "tutar", "Tutar" },
-                { "iskonto", "İskonto" },
-                { "netCiro", "Net Ciro" },
-                { "lNetTutar", "Net Tutar" },
-                { "Fiyat", "Fiyat" },
-                { "periyod", "Periyod" },
-                { "lMiktari", "Miktar" },
-                { "lSevkiyat", "Sevkiyat" },
-                { "lKalan", "Kalan" },
-                { "nBirimCarpan", "Koli İçi" },
-                { "lMevcut", "Mevcut" }
-            };
-
-            return displayNames.ContainsKey(propertyName) ? displayNames[propertyName] : propertyName;
+            return type == typeof(int) || type == typeof(double) || type == typeof(decimal) || 
+                   type == typeof(float) || type == typeof(long) || type == typeof(short);
         }
 
-        private string FormatValue(object value)
+        private string TruncateText(string text, SKPaint paint, float maxWidth)
+        {
+            if (string.IsNullOrEmpty(text)) return "";
+            
+            float textWidth = paint.MeasureText(text);
+            if (textWidth <= maxWidth) return text;
+            
+            // Metni kısalt
+            int length = text.Length;
+            while (length > 0 && paint.MeasureText(text.Substring(0, length) + "...") > maxWidth)
+            {
+                length--;
+            }
+            
+            return length > 0 ? text.Substring(0, length) + "..." : "";
+        }
+
+        private string FormatValue(object value, string propertyName)
         {
             if (value == null) return "";
             
             if (value is DateTime dt)
                 return dt.ToString("dd.MM.yyyy");
             
-            if (value is double d)
-                return d.ToString("N0") + " TL";
+            // Para formatları
+            if (propertyName.Contains("tutar") || propertyName.Contains("Tutar") || 
+                propertyName.Contains("fiyat") || propertyName.Contains("Fiyat") ||
+                propertyName.Contains("iskonto") || propertyName.Contains("ciro") || propertyName.Contains("Ciro"))
+            {
+                if (value is double d)
+                    return d.ToString("N0") + " TL";
+                if (value is decimal dec)
+                    return dec.ToString("N0") + " TL";
+                if (value is float f)
+                    return f.ToString("N0") + " TL";
+            }
             
-            if (value is decimal dec)
-                return dec.ToString("N0") + " TL";
-            
-            if (value is float f)
-                return f.ToString("N0") + " TL";
+            // Miktar formatları
+            if (propertyName.Contains("miktar") || propertyName.Contains("Miktar") ||
+                propertyName.Contains("adet") || propertyName.Contains("Adet"))
+            {
+                if (value is double d)
+                    return d.ToString("N0");
+                if (value is decimal dec)
+                    return dec.ToString("N0");
+                if (value is int i)
+                    return i.ToString("N0");
+            }
             
             return value.ToString() ?? "";
         }

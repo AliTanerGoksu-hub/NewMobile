@@ -15,7 +15,7 @@
                            Color="Color.Surface" 
                            Class="hover-scale btn-press"
                            Style="background: rgba(255,255,255,0.95); border-radius: 12px; color: #11998e;"
-                           @onclick="@(() => Navigation.NavigateTo("/home"))" 
+                           @onclick="@(() => Navigation.NavigateTo("/reports"))" 
                            aria-label="Geri" />
             <div>
                 <MudText Typo="Typo.h5" Class="page-header-title">
@@ -262,7 +262,18 @@
                 return;
             }
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
+            // Ekranda görünen kolonları tanımla
+            var columns = new Dictionary<string, string>
+            {
+                { "sMusteriAdi", "Müşteri" },
+                { "satici", "Satıcı" },
+                { "dteTarih", "Tarih" },
+                { "nFirmaID", "Firma ID" },
+                { "lNo", "Fiş No" },
+                { "nAlisVerisID", "Alış-Veriş ID" }
+            };
+
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisAnalizi.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);
