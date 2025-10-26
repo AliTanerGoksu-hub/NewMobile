@@ -181,10 +181,29 @@ namespace BusinessSmartMobile.Services
             if (value is DateTime dt)
                 return dt.ToString("dd.MM.yyyy");
             
-            // Para formatları
-            if (propertyName.Contains("tutar") || propertyName.Contains("Tutar") || 
-                propertyName.Contains("fiyat") || propertyName.Contains("Fiyat") ||
-                propertyName.Contains("iskonto") || propertyName.Contains("ciro") || propertyName.Contains("Ciro"))
+            string lowerProp = propertyName.ToLower();
+            
+            // Önce miktar ve adet kontrolü (TL olmaması için)
+            if (lowerProp.Contains("miktar") || lowerProp.Contains("adet") || 
+                lowerProp.Contains("mevcut") || lowerProp.Contains("kalan") ||
+                lowerProp.Contains("sevkiyat") || lowerProp.Contains("siparis") ||
+                lowerProp.Contains("bekleyen") || lowerProp.Contains("koli"))
+            {
+                if (value is double d)
+                    return d.ToString("N0");
+                if (value is decimal dec)
+                    return dec.ToString("N0");
+                if (value is int i)
+                    return i.ToString("N0");
+                if (value is float f)
+                    return f.ToString("N0");
+            }
+            
+            // Para formatları (sadece bunlara TL)
+            if (lowerProp.Contains("tutar") || lowerProp.Contains("fiyat") ||
+                lowerProp.Contains("iskonto") || lowerProp.Contains("ciro") ||
+                lowerProp.Contains("bakiye") || lowerProp.Contains("risk") ||
+                lowerProp.Contains("kar") || lowerProp.Contains("zarar"))
             {
                 if (value is double d)
                     return d.ToString("N0") + " TL";
@@ -194,17 +213,15 @@ namespace BusinessSmartMobile.Services
                     return f.ToString("N0") + " TL";
             }
             
-            // Miktar formatları
-            if (propertyName.Contains("miktar") || propertyName.Contains("Miktar") ||
-                propertyName.Contains("adet") || propertyName.Contains("Adet"))
-            {
-                if (value is double d)
-                    return d.ToString("N0");
-                if (value is decimal dec)
-                    return dec.ToString("N0");
-                if (value is int i)
-                    return i.ToString("N0");
-            }
+            // Diğer sayısal değerler (TL olmadan)
+            if (value is double d2)
+                return d2.ToString("N0");
+            if (value is decimal dec2)
+                return dec2.ToString("N0");
+            if (value is int i2)
+                return i2.ToString("N0");
+            if (value is float f2)
+                return f2.ToString("N0");
             
             return value.ToString() ?? "";
         }
