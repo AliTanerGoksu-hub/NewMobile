@@ -204,7 +204,21 @@
                 return;
             }
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
+            // Ekranda görünen kolonları tanımla
+            var columns = new Dictionary<string, string>
+            {
+                { "sKodu", "Stok Kodu" },
+                { "sStokAciklama", "Stok Adı" },
+                { "miktar", "Miktar" },
+                { "mevcut", "Mevcut" },
+                { "Bekleyen", "Bekleyen" },
+                { "siparis", "Sipariş" },
+                { "sonAlisTarihi", "Son Alış Tarihi" },
+                { "sonAlisMiktari", "Son Alış Miktarı" },
+                { "satici", "Satıcı" }
+            };
+
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisKalanRaporu.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);
