@@ -206,7 +206,22 @@
                 return;
             }
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
+            // Ekranda görünen kolonları tanımla
+            var columns = new Dictionary<string, string>
+            {
+                { "sAciklama", "Açıklama" },
+                { "miktar", "Miktar" },
+                { "maliyet", "Maliyet" },
+                { "tutar", "Tutar" },
+                { "iskonto", "İskonto" },
+                { "kar", "Kar" },
+                { "yuzde", "Yüzde" },
+                { "MUISTERISAYISI", "Müşteri Sayısı" },
+                { "FISSAYISI", "Fiş" },
+                { "FISORTALAMA", "Fiş Ortalama" }
+            };
+
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisCirolariSiniflandirma.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

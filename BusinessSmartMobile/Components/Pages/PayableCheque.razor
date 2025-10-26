@@ -347,7 +347,19 @@
                 return;
             }
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel);
+            // Ekranda görünen kolonları tanımla
+            var columns = new Dictionary<string, string>
+            {
+                { "sVerenFirmaAciklama", "Firma" },
+                { "lCekSenetNo", "Evrak No" },
+                { "lKalan", "Kalan" },
+                { "dteVadeTarihi", "Vade" },
+                { "sAlanFirmaAciklama", "Alan Hesap" },
+                { "sBankaAciklama", "Banka" },
+                { "lDovizMiktari1", "Döviz Tutar" }
+            };
+
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
             
             ReportPdfService.SavePdfToFile(pdfBytes, "OdenecekCek.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);
