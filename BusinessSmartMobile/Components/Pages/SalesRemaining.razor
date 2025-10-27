@@ -86,17 +86,24 @@
     private bool _loading = true;
     private bool _error = false;
     private string _errorMessage = "";
-    static DateTime now = DateTime.Now;
-    static DateTime firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
-    static DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-    string startDateStr = firstDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
-    string endDateStr = lastDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
-    static string magaza = "";
-    static string sSaticiRumuzu = "";
-    static string personelKodu = "";
+    DateTime now = DateTime.Now;
+    DateTime firstDayOfMonth;
+    DateTime lastDayOfMonth;
+    string startDateStr;
+    string endDateStr;
+    string magaza = "";
+    string sSaticiRumuzu = "";
+    string personelKodu = "";
 
     protected override async Task OnInitializedAsync()
     {
+        // Tarih değişkenlerini initialize et
+        firstDayOfMonth = new DateTime(now.Year, now.Month, 1);
+        lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+        startDateStr = firstDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+        endDateStr = lastDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+        
+        // Auth bilgilerini yükle
         magaza = _authService.Auth?.sDepo ?? "";
         sSaticiRumuzu = _authService.Auth?.sSaticiRumuzu ?? "";
         personelKodu = _authService.Auth?.PERSONELKODU ?? "";
