@@ -160,7 +160,12 @@ namespace BusinessSmartMobile.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync(_uri + $"api/Reports/SalesRemainingReport?startDate={startDate}&endDate={endDate}&personelKodu={personelKodu}&sSaticiRumuzu={sSaticiRumuzu}&magaza={magaza}");
+                Console.WriteLine($"[ReportsService.GetSalesRemainingReport] personelKodu: '{personelKodu}', sSaticiRumuzu: '{sSaticiRumuzu}', magaza: '{magaza}'");
+                
+                var url = $"api/Reports/SalesRemainingReport?startDate={startDate}&endDate={endDate}&personelKodu={personelKodu}&sSaticiRumuzu={sSaticiRumuzu}&magaza={magaza}";
+                Console.WriteLine($"[ReportsService.GetSalesRemainingReport] API URL: {_uri}{url}");
+                
+                var response = await _httpClient.GetAsync(_uri + url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -205,7 +210,12 @@ namespace BusinessSmartMobile.Services
             {
                 sDepo = sDepo ?? _authService.Auth?.sDepo ?? throw new Exception("Depo bulunamadı.");
 
-                var response = await _httpClient.GetAsync(_uri + $"api/Reports/DeliveryReport?startDate={startDate}&endDate={endDate}&personelKodu={personelKodu}&sSaticiRumuzu={sSaticiRumuzu}&sDepo={sDepo}&type={type}&customerName={customerName}&customerCode={customerCode}");
+                Console.WriteLine($"[ReportsService.GetDeliveryReport] personelKodu: '{personelKodu}', sSaticiRumuzu: '{sSaticiRumuzu}', sDepo: '{sDepo}'");
+                
+                var url = $"api/Reports/DeliveryReport?startDate={startDate}&endDate={endDate}&personelKodu={personelKodu}&sSaticiRumuzu={sSaticiRumuzu}&sDepo={sDepo}&type={type}&customerName={customerName}&customerCode={customerCode}";
+                Console.WriteLine($"[ReportsService.GetDeliveryReport] API URL: {_uri}{url}");
+                
+                var response = await _httpClient.GetAsync(_uri + url);
 
                 if (response.IsSuccessStatusCode)
                 {
