@@ -153,11 +153,11 @@ public class PdfService
                     return (iskFiyat + " TL")?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "";
                 },
                 x => {
-                    // TOPLAM = Koli İçi (nBirimCarpan) × İskontolu Fiyat
+                    // TOPLAM = Miktar × Koli İçi × İskontolu Fiyat
                     var iskFiyat = x.Urun.nIskontoYuzdesi > 0 
                         ? (x.Urun.lFiyat1 - (x.Urun.lFiyat1 * x.Urun.nIskontoYuzdesi / 100))
                         : x.Urun.lFiyat1;
-                    var toplam = $"{x.Urun.nBirimCarpan * iskFiyat:N0}";
+                    var toplam = $"{x.Miktar * x.Urun.nBirimCarpan * iskFiyat:N0}";
                     return (toplam + " TL")?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "";
                 }
             });
@@ -167,8 +167,8 @@ public class PdfService
             headers.Add("TOPLAM");
             columnWidths.Add(0.22f);
             valueSelectors.Add(x => {
-                // TOPLAM = Koli İçi (nBirimCarpan) × Fiyat
-                var toplam = $"{x.Urun.nBirimCarpan * x.Urun.lFiyat1:N0}";
+                // TOPLAM = Miktar × Koli İçi × Fiyat
+                var toplam = $"{x.Miktar * x.Urun.nBirimCarpan * x.Urun.lFiyat1:N0}";
                 return (toplam + " TL")?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "";
             });
         }
