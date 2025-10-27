@@ -18,7 +18,7 @@ namespace BusinessSmartMobile.Services
         private static readonly SKColor PrimaryColor = SKColor.Parse("#2c3e50");
         private static readonly SKColor TextGray = SKColor.Parse("#6c757d");
 
-        public byte[] CreateReportPdf<T>(List<T> data, TbParamGenel paramGenel, Dictionary<string, string> columns)
+        public byte[] CreateReportPdf<T>(List<T> data, TbParamGenel paramGenel, Dictionary<string, string> columns, string reportName = "")
         {
             // Kolon sayısına göre yönlendirme karar ver
             bool useLandscape = columns.Count > 4;
@@ -39,7 +39,7 @@ namespace BusinessSmartMobile.Services
             canvas = document.BeginPage(PageWidth, PageHeight);
             currentY = MarginTop;
 
-            AddHeader(paramGenel);
+            AddHeader(paramGenel, reportName);
             AddReportTable(data, columns);
             
             document.EndPage();
@@ -47,23 +47,44 @@ namespace BusinessSmartMobile.Services
             return stream.ToArray();
         }
 
-        private void AddHeader(TbParamGenel paramGenel)
+        private void AddHeader(TbParamGenel paramGenel, string reportName = "")
         {
-            using var titlePaint = new SKPaint { Color = PrimaryColor, TextSize = 13, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
-            using var infoPaint = new SKPaint { Color = TextGray, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
-            using var companyPaint = new SKPaint { Color = PrimaryColor, TextSize = 11, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
+            using var companyPaint = new SKPaint { Color = PrimaryColor, TextSize = 18, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
+            using var reportNamePaint = new SKPaint { Color = PrimaryColor, TextSize = 14, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
+            using var dateLabelPaint = new SKPaint { Color = TextGray, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyle.Bold), IsAntialias = true };
+            using var datePaint = new SKPaint { Color = TextGray, TextSize = 9, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
             
-            string dateText = $"Tarih: {DateTime.Now:dd/MM/yyyy}";
-            float dateWidth = infoPaint.MeasureText(dateText);
-            canvas.DrawText(dateText, PageWidth - MarginRight - dateWidth, currentY, infoPaint);
-            currentY += 20;
-            canvas.DrawText(paramGenel.sFirmaAdi, MarginLeft, currentY, companyPaint);
-            currentY += 15;
-            canvas.DrawText($"Adres: {paramGenel.sFirmaAdresi}", MarginLeft, currentY, infoPaint);
-            string phoneText = $"Telefon: {paramGenel.sTelefon1}";
-            float phoneWidth = infoPaint.MeasureText(phoneText);
-            canvas.DrawText(phoneText, PageWidth - MarginRight - phoneWidth, currentY, infoPaint);
-            currentY += 20;
+            // Rapor Tarihi (sağ üstte)
+            string dateLabelText = "Rapor Tarihi: ";
+            string dateText = $"{DateTime.Now:dd.MM.yyyy}";
+            float dateLabelWidth = dateLabelPaint.MeasureText(dateLabelText);
+            float dateWidth = datePaint.MeasureText(dateText);
+            float totalDateWidth = dateLabelWidth + dateWidth;
+            canvas.DrawText(dateLabelText, PageWidth - MarginRight - totalDateWidth, currentY, dateLabelPaint);
+            canvas.DrawText(dateText, PageWidth - MarginRight - dateWidth, currentY, datePaint);
+            
+            currentY += 25;
+            
+            // Firma Adı (ortalanmış, büyük, kalın)
+            string companyName = paramGenel.sFirmaAdi;
+            float companyWidth = companyPaint.MeasureText(companyName);
+            float companyX = (PageWidth - companyWidth) / 2;
+            canvas.DrawText(companyName, companyX, currentY, companyPaint);
+            
+            currentY += 22;
+            
+            // Rapor İsmi (ortalanmış, firma adından biraz daha küçük)
+            if (!string.IsNullOrEmpty(reportName))
+            {
+                float reportNameWidth = reportNamePaint.MeasureText(reportName);
+                float reportNameX = (PageWidth - reportNameWidth) / 2;
+                canvas.DrawText(reportName, reportNameX, currentY, reportNamePaint);
+                currentY += 20;
+            }
+            else
+            {
+                currentY += 10;
+            }
         }
 
         private void AddReportTable<T>(List<T> data, Dictionary<string, string> columns)
@@ -190,13 +211,26 @@ namespace BusinessSmartMobile.Services
                 {
                     try
                     {
-                        var date = DateTime.Parse(strDate);
+                        // Türk kültürü ile parse et
+                        var turkishCulture = new System.Globalization.CultureInfo("tr-TR");
+                        var date = DateTime.Parse(strDate, turkishCulture);
                         return date.ToString("dd.MM.yyyy");
                     }
                     catch
                     {
-                        // Parse başarısız olursa sadece tarih kısmını al (ilk 10 karakter)
-                        return strDate.Length >= 10 ? strDate.Substring(0, 10) : strDate;
+                        try
+                        {
+                            // Eğer Türk kültürü ile olmadıysa, Amerikan formatında dene
+                            var date = DateTime.ParseExact(strDate, new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
+                                System.Globalization.CultureInfo.InvariantCulture, 
+                                System.Globalization.DateTimeStyles.None);
+                            return date.ToString("dd.MM.yyyy");
+                        }
+                        catch
+                        {
+                            // Parse başarısız olursa sadece tarih kısmını al (ilk 10 karakter)
+                            return strDate.Length >= 10 ? strDate.Substring(0, 10) : strDate;
+                        }
                     }
                 }
             }

@@ -221,7 +221,7 @@
                 { "FISORTALAMA", "Fiş Ortalama" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Satış Ciroları Sınıflandırma Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisCirolariSiniflandirma.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

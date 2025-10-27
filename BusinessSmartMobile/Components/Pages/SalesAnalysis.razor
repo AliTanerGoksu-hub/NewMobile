@@ -281,7 +281,7 @@
                 { "nAlisVerisID", "Alış-Veriş ID" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Satış Analizi Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisAnalizi.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

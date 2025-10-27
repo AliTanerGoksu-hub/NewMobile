@@ -241,7 +241,7 @@
                 { "satici", "Satıcı" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Satış Kalan Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisKalanRaporu.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

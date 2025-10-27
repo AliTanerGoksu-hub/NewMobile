@@ -219,7 +219,7 @@
                 { "nOran", "Oran" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Satış Ciroları Satıcılar Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "SatisCirolariSaticilar.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

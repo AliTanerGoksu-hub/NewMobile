@@ -310,7 +310,7 @@
                 { "lKalan", "Kalan" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Teslimat Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "TeslimatRaporu.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);

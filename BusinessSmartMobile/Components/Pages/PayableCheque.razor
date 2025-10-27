@@ -367,7 +367,7 @@
                 { "lDovizMiktari1", "Döviz Tutar" }
             };
 
-            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns);
+            var pdfBytes = ReportPdfService.CreateReportPdf(list, paramGenel, columns, "Ödenecek Çek Raporu");
             
             ReportPdfService.SavePdfToFile(pdfBytes, "OdenecekCek.pdf");
             Snackbar.Add("Rapor açıldı!", Severity.Success);
