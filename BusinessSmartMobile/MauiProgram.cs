@@ -40,7 +40,7 @@ namespace BusinessSmartMobile
             builder.Services.AddScoped<OrderService>();
             builder.Services.AddScoped<ReportsService>();
             builder.Services.AddScoped<PaymentService>();
-            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddSingleton<AuthService>();  // AuthService Singleton olmalı - uygulama boyunca tek instance
             builder.Services.AddScoped<DeviceService>();
             builder.Services.AddScoped<PdfService>();
             builder.Services.AddScoped<ReportPdfService>();
