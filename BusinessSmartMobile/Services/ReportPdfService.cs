@@ -178,10 +178,28 @@ namespace BusinessSmartMobile.Services
         {
             if (value == null) return "";
             
+            // DateTime kontrolü
             if (value is DateTime dt)
                 return dt.ToString("dd.MM.yyyy");
             
+            // String olarak gelen tarih kontrolü (dteSiparisTarihi, dteTarih vb.)
             string lowerProp = propertyName.ToLower();
+            if ((lowerProp.Contains("tarih") || lowerProp.Contains("date")) && value is string strDate)
+            {
+                if (!string.IsNullOrEmpty(strDate))
+                {
+                    try
+                    {
+                        var date = DateTime.Parse(strDate);
+                        return date.ToString("dd.MM.yyyy");
+                    }
+                    catch
+                    {
+                        // Parse başarısız olursa sadece tarih kısmını al (ilk 10 karakter)
+                        return strDate.Length >= 10 ? strDate.Substring(0, 10) : strDate;
+                    }
+                }
+            }
             
             // Önce miktar ve adet kontrolü (TL olmaması için)
             if (lowerProp.Contains("miktar") || lowerProp.Contains("adet") || 
