@@ -92,13 +92,19 @@
     string startDateStr = firstDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
     string endDateStr = lastDayOfMonth.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
     static string magaza = "";
+    static string sSaticiRumuzu = "";
+    static string personelKodu = "";
 
     protected override async Task OnInitializedAsync()
     {
         magaza = _authService.Auth?.sDepo ?? "";
+        sSaticiRumuzu = _authService.Auth?.sSaticiRumuzu ?? "";
+        personelKodu = _authService.Auth?.PERSONELKODU ?? "";
         
         // Debug için
         Console.WriteLine($"[SalesRemaining] Kullanıcı deposu: {magaza}");
+        Console.WriteLine($"[SalesRemaining] Satıcı rumuzu: {sSaticiRumuzu}");
+        Console.WriteLine($"[SalesRemaining] Personel kodu: {personelKodu}");
         Console.WriteLine($"[SalesRemaining] Auth null mu: {_authService.Auth == null}");
         if (_authService.Auth != null)
         {
@@ -168,7 +174,7 @@
 
         try
         {
-            (list, apiMessage) = await ReportsService.GetSalesRemainingReport(startDate, endDate, magaza);
+            (list, apiMessage) = await ReportsService.GetSalesRemainingReport(startDate, endDate, personelKodu, sSaticiRumuzu, magaza);
             _loading = true;
             _error = false;
 

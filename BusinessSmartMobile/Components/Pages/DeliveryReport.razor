@@ -245,7 +245,7 @@
 
         try
         {
-            (list, apiMessage) = await ReportsService.GetDeliveryReport(startDate, endDate, sSaticiRumuzu, sDepo, type, customerName, customerCode);
+            (list, apiMessage) = await ReportsService.GetDeliveryReport(startDate, endDate, personelKodu, sSaticiRumuzu, sDepo, type, customerName, customerCode);
             _loading = true;
             _error = false;
 
