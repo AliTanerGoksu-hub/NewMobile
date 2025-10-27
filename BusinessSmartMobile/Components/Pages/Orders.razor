@@ -88,19 +88,19 @@
         </div>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh Style="min-width: 100px;">İşlem</MudTh>
-        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSevkiyat)">Sevk Edilen</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lKalan)">Kalan</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nKdvOrani)">KDV Oranı</MudTableSortLabel></MudTh>
-        <MudTh Style="min-width: 200px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sFirmaAciklama)">Firma</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px; text-align: center;">İşlem</MudTh>
+        <MudTh Style="min-width: 120px; text-align: left;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 140px; text-align: left;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSevkiyat)">Sevk Edilen</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lKalan)">Kalan</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 140px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px; text-align: right;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nKdvOrani)">KDV Oranı</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 200px; text-align: left;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sFirmaAciklama)">Firma</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd>
+        <MudTd Style="text-align: center;">
             <MudIconButton Icon="@Icons.Material.Filled.FormatListNumbered"
                            Color="Color.Primary"
                            @onclick="() => OpenDetailDialog(context.lSiparisNo)"
