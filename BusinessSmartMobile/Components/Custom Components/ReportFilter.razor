@@ -1,6 +1,7 @@
 ﻿@inject MudBlazor.IDialogService DialogService
 @inject StockService StockService
 @inject ReportsService ReportsService
+@inject AuthService AuthService
 <MudDialog>
     <DialogContent>
         @if (FilterOptions.ShowCustomerSearch)
@@ -22,7 +23,7 @@
         <MudDatePicker Label="Başlangıç Tarihi" @bind-Date="Filter.StartDate" DateFormat="dd.MM.yyyy" />
         <MudDatePicker Label="Bitiş Tarihi" @bind-Date="Filter.EndDate" DateFormat="dd.MM.yyyy" />
 
-        @if (FilterOptions.ShowVendor)
+        @if (FilterOptions.ShowVendor && isAdmin)
         {
             <MudSelect T="string" Label="Satıcı" @bind-Value="Filter.Vendor">
                 @foreach (var v in Vendors)
@@ -32,7 +33,7 @@
             </MudSelect>
         }
 
-        @if (FilterOptions.ShowWarehouse)
+        @if (FilterOptions.ShowWarehouse && isAdmin)
         {
             <MudSelect T="string" Label="Depo" @bind-Value="Filter.Warehouse">
                 @foreach (var w in Warehouses)
@@ -42,7 +43,7 @@
             </MudSelect>
         }
 
-        @if (FilterOptions.ShowStore)
+        @if (FilterOptions.ShowStore && isAdmin)
         {
             <MudSelect T="string" Label="Mağaza" @bind-Value="Filter.Store">
                 @foreach (var s in Stores)
@@ -80,11 +81,18 @@
     private List<TbDepo> Warehouses = new();
     private List<TbDepo> Stores = new();
     private List<(string Id, string Name)> Class = new();
+    private bool isAdmin = false;
 
 
 
     protected override async Task OnInitializedAsync()
     {
+        // Kullanıcının admin olup olmadığını kontrol et
+        var personelKodu = AuthService.Auth?.PERSONELKODU ?? "";
+        isAdmin = !string.IsNullOrEmpty(personelKodu) && personelKodu.StartsWith("AD", StringComparison.OrdinalIgnoreCase);
+        
+        Console.WriteLine($"[ReportFilter] PersonelKodu: '{personelKodu}', isAdmin: {isAdmin}");
+        
         // Burada senin DB servisinden çekilecek
         if (FilterOptions.ShowVendor)
         {
