@@ -167,11 +167,9 @@
         
         // Debug için
         Console.WriteLine($"[DeliveryReport] Kullanıcı deposu: {sDepo}");
+        Console.WriteLine($"[DeliveryReport] Satıcı rumuzu: {sSaticiRumuzu}");
+        Console.WriteLine($"[DeliveryReport] Personel kodu: {personelKodu}");
         Console.WriteLine($"[DeliveryReport] Auth null mu: {_authService.Auth == null}");
-        if (_authService.Auth != null)
-        {
-            Console.WriteLine($"[DeliveryReport] sDepo değeri: {_authService.Auth.sDepo}");
-        }
         
         LoadList(startDateStr, endDateStr, sSaticiRumuzu, sDepo, "1");
     }
