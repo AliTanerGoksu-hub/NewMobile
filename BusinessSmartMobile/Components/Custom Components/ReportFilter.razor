@@ -88,10 +88,17 @@
     protected override async Task OnInitializedAsync()
     {
         // Kullanıcının admin olup olmadığını kontrol et
+        // SQL: WHERE PERSONELKODU LIKE 'AD%'
         var personelKodu = AuthService.Auth?.PERSONELKODU ?? "";
-        isAdmin = !string.IsNullOrEmpty(personelKodu) && personelKodu.StartsWith("AD", StringComparison.OrdinalIgnoreCase);
+        isAdmin = !string.IsNullOrEmpty(personelKodu) && personelKodu.ToUpper().StartsWith("AD");
         
         Console.WriteLine($"[ReportFilter] PersonelKodu: '{personelKodu}', isAdmin: {isAdmin}");
+        
+        // Admin değilse, depo ve satıcı seçenekleri gizlenir
+        if (!isAdmin)
+        {
+            Console.WriteLine($"[ReportFilter] Normal kullanıcı - Depo ve satıcı seçimi gizli");
+        }
         
         // Burada senin DB servisinden çekilecek
         if (FilterOptions.ShowVendor)
