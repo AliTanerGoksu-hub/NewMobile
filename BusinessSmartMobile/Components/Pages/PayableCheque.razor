@@ -62,7 +62,15 @@
         <MudTd DataLabel="Vade">
             @if (@context.dteVadeTarihi != null)
             {
-                @context.dteVadeTarihi.Value.ToString("dd.MM.yyyy")
+                try
+                {
+                    var date = DateTime.Parse(@context.dteVadeTarihi);
+                    @date.ToString("dd.MM.yyyy")
+                }
+                catch
+                {
+                    @context.dteVadeTarihi
+                }
             }
         </MudTd>
         <MudTd DataLabel="Alan Hesap">@context.sAlanFirmaAciklama</MudTd>

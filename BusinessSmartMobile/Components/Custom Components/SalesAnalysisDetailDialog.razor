@@ -37,7 +37,15 @@
                 <MudTd DataLabel="Tarih">
                     @if (@context.dteTarih != null)
                     {
-                        @context.dteTarih.Value.ToString("dd.MM.yyyy")
+                        try
+                        {
+                            var date = DateTime.Parse(@context.dteTarih);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.dteTarih
+                        }
                     }
                 </MudTd>
                 <MudTd DataLabel="Hesap Adı">@context.sMusteriAdi</MudTd>

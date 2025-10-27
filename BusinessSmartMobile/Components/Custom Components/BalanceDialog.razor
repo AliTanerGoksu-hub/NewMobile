@@ -27,7 +27,15 @@
                 <MudTd DataLabel="Tarih">
                     @if (@context.tarih != null)
                     {
-                        @context.tarih.Value.ToString("dd.MM.yyyy")
+                        try
+                        {
+                            var date = DateTime.Parse(@context.tarih);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.tarih
+                        }
                     }
                 </MudTd>
                 <MudTd DataLabel="Alacak" Style="text-align:right">@context.lAlacakTutar.ToString("N0") ₺</MudTd>

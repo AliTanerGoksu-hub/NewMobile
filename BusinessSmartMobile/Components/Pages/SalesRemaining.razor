@@ -64,7 +64,15 @@
         <MudTd DataLabel="Son Alış Tarihi">
             @if (@context.sonAlisTarihi != null)
             {
-                @context.sonAlisTarihi.Value.ToString("dd.MM.yyyy")
+                try
+                {
+                    var date = DateTime.Parse(@context.sonAlisTarihi);
+                    @date.ToString("dd.MM.yyyy")
+                }
+                catch
+                {
+                    @context.sonAlisTarihi
+                }
             }
         </MudTd>
         <MudTd DataLabel="Son Alış Miktarı" Style="text-align:right">@context.sonAlisMiktari</MudTd>

@@ -57,7 +57,15 @@
                 <MudTd DataLabel="Sipariş Tarihi">
                     @if (@context.dteSiparisTarihi != null)
                     {
-                        @context.dteSiparisTarihi.Value.ToString("dd.MM.yyyy")
+                        try
+                        {
+                            var date = DateTime.Parse(@context.dteSiparisTarihi);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.dteSiparisTarihi
+                        }
                     }
                 </MudTd>
                 <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
