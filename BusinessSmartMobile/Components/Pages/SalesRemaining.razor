@@ -62,9 +62,9 @@
         <MudTd DataLabel="Bekleyen" Style="text-align:right">@context.Bekleyen.ToString("N2")</MudTd>
         <MudTd DataLabel="Sipariş" Style="text-align:right">@context.siparis.ToString("N2")</MudTd>
         <MudTd DataLabel="Son Alış Tarihi">
-            @if (!string.IsNullOrEmpty(@context.sonAlisTarihi?.ToString()))
+            @if (@context.sonAlisTarihi != null)
             {
-                @context.sonAlisTarihi.ToString().Substring(0, 10);
+                @context.sonAlisTarihi.Value.ToString("dd.MM.yyyy")
             }
         </MudTd>
         <MudTd DataLabel="Son Alış Miktarı" Style="text-align:right">@context.sonAlisMiktari</MudTd>

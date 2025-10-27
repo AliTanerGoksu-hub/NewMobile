@@ -24,7 +24,12 @@
             <RowTemplate>
                 <MudTd>  <MudIconButton Icon="@Icons.Material.Filled.ContentPasteSearch" @onclick="@(() => OpenReceiptDetailDialog(context.lFisNo))"></MudIconButton></MudTd>
                 <MudTd DataLabel="İşlem Tipi">@context.islemTipi</MudTd>
-                <MudTd DataLabel="Tarih">@context.tarih</MudTd>
+                <MudTd DataLabel="Tarih">
+                    @if (@context.tarih != null)
+                    {
+                        @context.tarih.Value.ToString("dd.MM.yyyy")
+                    }
+                </MudTd>
                 <MudTd DataLabel="Alacak" Style="text-align:right">@context.lAlacakTutar.ToString("N0") ₺</MudTd>
                 <MudTd DataLabel="Borç" Style="text-align:right">@context.lBorcTutar.ToString("N0") ₺</MudTd>
                 <MudTd DataLabel="Kalan Bakiye" Style="text-align:right">@context.kalanBakiye.ToString("N0") ₺</MudTd>

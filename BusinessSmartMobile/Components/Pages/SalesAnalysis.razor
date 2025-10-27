@@ -90,9 +90,9 @@
         <MudTd DataLabel="Müşteri">@context.sMusteriAdi</MudTd>
         <MudTd DataLabel="Satıcı">@context.satici</MudTd>
         <MudTd DataLabel="Tarih">
-            @if (!string.IsNullOrEmpty(@context.dteTarih?.ToString()))
+            @if (@context.dteTarih != null)
             {
-                @context.dteTarih.ToString().Substring(0, 10);
+                @context.dteTarih.Value.ToString("dd.MM.yyyy")
             }
         </MudTd>
         <MudTd DataLabel="Firma ID">@context.nFirmaID</MudTd>

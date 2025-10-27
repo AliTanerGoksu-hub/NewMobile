@@ -54,7 +54,12 @@
                                    aria-label="SİL">
                     </MudIconButton>
                 </MudTd>
-                <MudTd DataLabel="Sipariş Tarihi">@context.dteSiparisTarihi</MudTd>
+                <MudTd DataLabel="Sipariş Tarihi">
+                    @if (@context.dteSiparisTarihi != null)
+                    {
+                        @context.dteSiparisTarihi.Value.ToString("dd.MM.yyyy")
+                    }
+                </MudTd>
                 <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
                 <MudTd DataLabel="Stok Adı">@context.sSiparisiVeren</MudTd>
                 <MudTd DataLabel="Miktar">@context.lMiktari</MudTd>

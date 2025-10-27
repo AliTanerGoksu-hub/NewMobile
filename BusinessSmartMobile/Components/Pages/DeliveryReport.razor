@@ -107,10 +107,9 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Tarih">
-            @if (!string.IsNullOrEmpty(@context.dteSiparisTarihi?.ToString()))
+            @if (@context.dteSiparisTarihi != null)
             {
-                @context.dteSiparisTarihi.ToString().Substring(0, 10)
-                ;
+                @context.dteSiparisTarihi.Value.ToString("dd.MM.yyyy")
             }
         </MudTd>
         <MudTd DataLabel="Firma Adı">@context.sFirmaAciklama</MudTd>
@@ -126,9 +125,9 @@
         <MudTd DataLabel="Kalan" Style="text-align:right">
             @context.lKalan.ToString("N0")
             @* <MudTd DataLabel="Teslim Tarihi">
-            @if (!string.IsNullOrEmpty(@context.dteTeslimTarihi?.ToString()))
+            @if (@context.dteTeslimTarihi != null)
             {
-                @context.dteTeslimTarihi.ToString().Substring(0, 10);
+                @context.dteTeslimTarihi.Value.ToString("dd.MM.yyyy");
             } *@
         </MudTd>
         <MudTd DataLabel="Açıklama 2">@context.sAciklama2</MudTd>

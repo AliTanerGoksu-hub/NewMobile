@@ -60,9 +60,9 @@
         <MudTd DataLabel="Evrak No">@context.lCekSenetNo</MudTd>
         <MudTd DataLabel="Kalan" Style="text-align:right">@context.lKalan</MudTd>
         <MudTd DataLabel="Vade">
-            @if (!string.IsNullOrEmpty(@context.dteVadeTarihi?.ToString()))
+            @if (@context.dteVadeTarihi != null)
             {
-                @context.dteVadeTarihi.ToString().Substring(0, 10);
+                @context.dteVadeTarihi.Value.ToString("dd.MM.yyyy")
             }
         </MudTd>
         <MudTd DataLabel="Alan Hesap">@context.sAlanFirmaAciklama</MudTd>

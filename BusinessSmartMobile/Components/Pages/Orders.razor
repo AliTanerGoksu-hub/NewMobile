@@ -109,9 +109,9 @@
         </MudTd>
         <MudTd DataLabel="Sipariş No">@context.lSiparisNo</MudTd>
         <MudTd DataLabel="Sipariş Tarihi">
-            @if (!string.IsNullOrEmpty(@context.dteSiparisTarihi?.ToString()))
+            @if (@context.dteSiparisTarihi != null)
             {
-                @context.dteSiparisTarihi.ToString().Substring(0, 10);
+                @context.dteSiparisTarihi.Value.ToString("dd.MM.yyyy")
             }
         </MudTd>
         <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari</MudTd>
