@@ -128,7 +128,7 @@ public class PdfService
                 var desc = x.Urun.sAciklama.Length > 53 ? x.Urun.sAciklama[..53] + "..." : x.Urun.sAciklama;
                 return desc?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "";
             },
-            x => x.Miktar.ToString("0")?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "",
+            x => ((int)x.Miktar).ToString(),
             x => x.Urun.nBirimCarpan.ToString()?.Replace("□", "").Replace("☐", "").Replace("▢", "").Replace("◻", "").Trim() ?? "",
             x => {
                 var price = $"{x.Urun.lFiyat1:N0}";

@@ -135,9 +135,9 @@
                 }
             }
         </MudTd>
-        <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari.ToString("0")</MudTd>
-        <MudTd DataLabel="Sevk Edilen" Style="text-align:right">@context.lSevkiyat.ToString("0")</MudTd>
-        <MudTd DataLabel="Kalan" Style="text-align:right">@context.lKalan.ToString("0")</MudTd>
+        <MudTd DataLabel="Miktar" Style="text-align:right">@((int)context.lMiktari)</MudTd>
+        <MudTd DataLabel="Sevk Edilen" Style="text-align:right">@((int)context.lSevkiyat)</MudTd>
+        <MudTd DataLabel="Kalan" Style="text-align:right">@((int)context.lKalan)</MudTd>
         <MudTd DataLabel="Tutar" Style="text-align:right">@context.lTutari.ToString("N0") TL</MudTd>
         <MudTd DataLabel="İskonto Tutarı" Style="text-align:right">@context.lIskontoTutari.ToString("N0") TL</MudTd>
         <MudTd DataLabel="KDV Oranı" Style="text-align:right">@context.nKdvOrani</MudTd>

@@ -83,7 +83,7 @@
                 </MudTd>
                 <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
                 <MudTd DataLabel="Stok Adı">@context.sSiparisiVeren</MudTd>
-                <MudTd DataLabel="Miktar">@context.lMiktari.ToString("0")</MudTd>
+                <MudTd DataLabel="Miktar">@((int)context.lMiktari)</MudTd>
                 <MudTd DataLabel="Birim Cinsi">@context.sBirimCinsi</MudTd>
                 <MudTd DataLabel="Tutar">@context.lTutari.ToString("N0") TL</MudTd>
                 <MudTd DataLabel="İskonto Tutarı">@context.lIskontoTutari.ToString("N0") TL</MudTd>
