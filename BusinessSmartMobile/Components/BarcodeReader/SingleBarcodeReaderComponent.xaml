@@ -18,7 +18,7 @@
         <!-- 🔔 Geçici barkod mesajı -->
 
 
-        <!-- 🔦 Işık aç/kapa butonu -->
+        <!-- 🔦 Işık aç/kapa butonu - ÜST TARAFA TAŞINDI -->
         <Button Text="💡 Işık"
              x:Name="torchButton"
              Clicked="TorchButton_Clicked"
@@ -30,8 +30,8 @@
              FontAttributes="Bold"
              CornerRadius="25"
              HorizontalOptions="Start"
-             VerticalOptions="End"
-             Margin="20,0,0,20"
+             VerticalOptions="Start"
+             Margin="20,80,0,0"
              Shadow="{Shadow Brush=Black, Radius=10, Opacity=0.5}" />
 
         <Button Text="✖ Kapat"

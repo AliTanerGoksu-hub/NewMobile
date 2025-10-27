@@ -24,17 +24,17 @@
                   Bordered="true"
                   FixedHeader="true"
                   FixedFooter="true"
-                  Style="overflow-y:auto">
+                  Style="overflow-y:auto; min-width: 1400px;">
             <HeaderContent>
-                <MudTh>İşlem</MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sSiparisiVeren)">Stok Adı</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sBirimCinsi)">Birim Cinsi</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nIskontoYuzdesi)">İskonto Yüzdesi</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 150px;">İşlem</MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 150px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 300px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sSiparisiVeren)">Stok Adı</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sBirimCinsi)">Birim Cinsi</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nIskontoYuzdesi)">İskonto Yüzdesi</MudTableSortLabel></MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd>
@@ -83,10 +83,10 @@
                 </MudTd>
                 <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
                 <MudTd DataLabel="Stok Adı">@context.sSiparisiVeren</MudTd>
-                <MudTd DataLabel="Miktar">@context.lMiktari</MudTd>
+                <MudTd DataLabel="Miktar">@context.lMiktari.ToString("0")</MudTd>
                 <MudTd DataLabel="Birim Cinsi">@context.sBirimCinsi</MudTd>
-                <MudTd DataLabel="Tutar">@context.lTutari</MudTd>
-                <MudTd DataLabel="İskonto Tutarı">@context.lIskontoTutari</MudTd>
+                <MudTd DataLabel="Tutar">@context.lTutari.ToString("N0") TL</MudTd>
+                <MudTd DataLabel="İskonto Tutarı">@context.lIskontoTutari.ToString("N0") TL</MudTd>
                 <MudTd DataLabel="İskonto Yüzdesi">@context.nIskontoYuzdesi</MudTd>
             </RowTemplate>
             <PagerContent>

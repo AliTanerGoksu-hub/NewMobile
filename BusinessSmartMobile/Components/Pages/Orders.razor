@@ -78,7 +78,7 @@
           FixedHeader="true"
           FixedFooter="true"
           Elevation="0"
-          Style="height:calc(100vh - 280px);overflow-y:auto">
+          Style="height:calc(100vh - 280px);overflow-y:auto; min-width: 1400px;">
     <ToolBarContent>
         <div style="flex: 1;">
             <MudText Typo="Typo.h6" Style="color: #2c3e50; font-weight: 600;">
@@ -88,16 +88,16 @@
         </div>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>İşlem</MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSevkiyat)">Sevk Edilen</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lKalan)">Kalan</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nKdvOrani)">KDV Oranı</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sFirmaAciklama)">Firma</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px;">İşlem</MudTh>
+        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.dteSiparisTarihi)">Sipariş Tarihi</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lSevkiyat)">Sevk Edilen</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lKalan)">Kalan</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.lIskontoTutari)">İskonto Tutarı</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.nKdvOrani)">KDV Oranı</MudTableSortLabel></MudTh>
+        <MudTh Style="min-width: 200px;"><MudTableSortLabel SortBy="new Func<TbSiparis, object>(x=>x.sFirmaAciklama)">Firma</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>
@@ -135,11 +135,11 @@
                 }
             }
         </MudTd>
-        <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari</MudTd>
-        <MudTd DataLabel="Sevk Edilen" Style="text-align:right">@context.lSevkiyat</MudTd>
-        <MudTd DataLabel="Kalan" Style="text-align:right">@context.lKalan</MudTd>
-        <MudTd DataLabel="Tutar" Style="text-align:right">@context.lTutari</MudTd>
-        <MudTd DataLabel="İskonto Tutarı" Style="text-align:right">@context.lIskontoTutari</MudTd>
+        <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari.ToString("0")</MudTd>
+        <MudTd DataLabel="Sevk Edilen" Style="text-align:right">@context.lSevkiyat.ToString("0")</MudTd>
+        <MudTd DataLabel="Kalan" Style="text-align:right">@context.lKalan.ToString("0")</MudTd>
+        <MudTd DataLabel="Tutar" Style="text-align:right">@context.lTutari.ToString("N0") TL</MudTd>
+        <MudTd DataLabel="İskonto Tutarı" Style="text-align:right">@context.lIskontoTutari.ToString("N0") TL</MudTd>
         <MudTd DataLabel="KDV Oranı" Style="text-align:right">@context.nKdvOrani</MudTd>
         <MudTd DataLabel="Firma">@context.sFirmaAciklama</MudTd>
     </RowTemplate>

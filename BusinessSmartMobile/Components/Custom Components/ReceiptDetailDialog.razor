@@ -9,27 +9,27 @@
                   Bordered="true"
                   FixedHeader="true"
                   FixedFooter="true"
-                  Style="overflow-y:auto">
+                  Style="overflow-y:auto; min-width: 1200px;">
             <HeaderContent>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lFisNo)">Fiş No</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.sAciklama)">Stok Adı</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lFiyati)">Fiyat</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lIskontosuzTutari)">İskontosuz Tutar</MudTableSortLabel></MudTh>
-                <MudTh><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.nIskontoYuzdesi)">İskonto Yüzdesi</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lFisNo)">Fiş No</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lSiparisNo)">Sipariş No</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 150px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.sKodu)">Stok Kodu</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 250px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.sAciklama)">Stok Adı</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 100px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lMiktari)">Miktar</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lFiyati)">Fiyat</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 120px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lTutari)">Tutar</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.lIskontosuzTutari)">İskontosuz Tutar</MudTableSortLabel></MudTh>
+                <MudTh Style="min-width: 140px;"><MudTableSortLabel SortBy="new Func<ReceiptDetail, object>(x=>x.nIskontoYuzdesi)">İskonto Yüzdesi</MudTableSortLabel></MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Fiş No">@context.lFisNo</MudTd>
                 <MudTd DataLabel="Sipariş No">@context.lSiparisNo</MudTd>
                 <MudTd DataLabel="Stok Kodu">@context.sKodu</MudTd>
                 <MudTd DataLabel="Stok Adı">@context.sAciklama</MudTd>
-                <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari.ToString("N2")</MudTd>
-                <MudTd DataLabel="Fiyat" Style="text-align:right">@context.lFiyati.ToString("N2")</MudTd>
-                <MudTd DataLabel="Tutar" Style="text-align:right">@context.lTutari.ToString("N2")</MudTd>
-                <MudTd DataLabel="İskontosuz Tutar" Style="text-align:right">@context.lIskontosuzTutari.ToString("N2")</MudTd>
+                <MudTd DataLabel="Miktar" Style="text-align:right">@context.lMiktari.ToString("0")</MudTd>
+                <MudTd DataLabel="Fiyat" Style="text-align:right">@context.lFiyati.ToString("N0") TL</MudTd>
+                <MudTd DataLabel="Tutar" Style="text-align:right">@context.lTutari.ToString("N0") TL</MudTd>
+                <MudTd DataLabel="İskontosuz Tutar" Style="text-align:right">@context.lIskontosuzTutari.ToString("N0") TL</MudTd>
                 <MudTd DataLabel="İskonto Yüzdesi" Style="text-align:right">@context.nIskontoYuzdesi.ToString("N2")</MudTd>
             </RowTemplate>
             <PagerContent>
