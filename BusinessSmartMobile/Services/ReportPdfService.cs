@@ -41,6 +41,7 @@ namespace BusinessSmartMobile.Services
 
             AddHeader(paramGenel, reportName);
             AddReportTable(data, columns);
+            AddFooter();
             
             document.EndPage();
             document.Close();
@@ -276,6 +277,21 @@ namespace BusinessSmartMobile.Services
                 return f2.ToString("N0");
             
             return value.ToString() ?? "";
+        }
+
+        private void AddFooter()
+        {
+            using var footerPaint = new SKPaint { Color = TextGray, TextSize = 7, Typeface = SKTypeface.FromFamilyName("Arial"), IsAntialias = true };
+            
+            string barkodText = "©Barkod Yazılım. www.barkodyazilim.com.tr info@bakodyazilim.com.tr";
+            
+            float barkodWidth = footerPaint.MeasureText(barkodText);
+            float contentWidth = PageWidth - MarginLeft - MarginRight;
+            
+            // Footer'ı sayfanın en altına yerleştir
+            float footerY = PageHeight - MarginBottom + 10;
+            
+            canvas.DrawText(barkodText, MarginLeft + (contentWidth - barkodWidth) / 2, footerY, footerPaint);
         }
 
         public void SavePdfToFile(byte[] pdfBytes, string fileName)
