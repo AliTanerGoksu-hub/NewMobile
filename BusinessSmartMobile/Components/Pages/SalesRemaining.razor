@@ -96,6 +96,15 @@
     protected override async Task OnInitializedAsync()
     {
         magaza = _authService.Auth?.sDepo ?? "";
+        
+        // Debug için
+        Console.WriteLine($"[SalesRemaining] Kullanıcı deposu: {magaza}");
+        Console.WriteLine($"[SalesRemaining] Auth null mu: {_authService.Auth == null}");
+        if (_authService.Auth != null)
+        {
+            Console.WriteLine($"[SalesRemaining] sDepo değeri: {_authService.Auth.sDepo}");
+        }
+        
         LoadList(startDateStr, endDateStr, magaza);
     }
 
