@@ -255,8 +255,10 @@ public class PdfService
 
         bool hasDiscount = order.Any(x => x.Urun.nIskontoYuzdesi > 0);
         double toplamMiktar = order.Sum(i => i.Miktar);
-        double toplamTutar = order.Sum(i => i.Miktar * i.Urun.lFiyat1);
-        double toplamIskonto = hasDiscount ? order.Sum(i => i.Urun.lFiyat1 * i.Urun.nIskontoYuzdesi / 100 * i.Miktar) : 0;
+        // Toplam = Miktar × Koli İçi × Liste Fiyat
+        double toplamTutar = order.Sum(i => i.Miktar * i.Urun.nBirimCarpan * i.Urun.lFiyat1);
+        // Toplam İskonto = (Miktar × Koli İçi × Liste Fiyat) × İskonto Oranı / 100
+        double toplamIskonto = hasDiscount ? order.Sum(i => i.Miktar * i.Urun.nBirimCarpan * i.Urun.lFiyat1 * i.Urun.nIskontoYuzdesi / 100) : 0;
         double genelToplam = toplamTutar - toplamIskonto;
 
         float contentWidth = PageWidth - MarginLeft - MarginRight;
