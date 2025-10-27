@@ -55,16 +55,29 @@
                     </MudIconButton>
                 </MudTd>
                 <MudTd DataLabel="Sipariş Tarihi">
-                    @if (@context.dteSiparisTarihi != null)
-                    {
-                        try
+                    @{
+                        if (@context.dteSiparisTarihi != null)
                         {
-                            var date = DateTime.Parse(@context.dteSiparisTarihi);
-                            @date.ToString("dd.MM.yyyy")
-                        }
-                        catch
-                        {
-                            @context.dteSiparisTarihi
+                            try
+                            {
+                                var date = DateTime.ParseExact(@context.dteSiparisTarihi, 
+                                    new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
+                                    System.Globalization.CultureInfo.InvariantCulture, 
+                                    System.Globalization.DateTimeStyles.None);
+                                @date.ToString("dd.MM.yyyy")
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    var date = DateTime.Parse(@context.dteSiparisTarihi);
+                                    @date.ToString("dd.MM.yyyy")
+                                }
+                                catch
+                                {
+                                    @context.dteSiparisTarihi
+                                }
+                            }
                         }
                     }
                 </MudTd>

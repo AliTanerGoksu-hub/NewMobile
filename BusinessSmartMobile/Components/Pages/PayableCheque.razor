@@ -60,16 +60,29 @@
         <MudTd DataLabel="Evrak No">@context.lCekSenetNo</MudTd>
         <MudTd DataLabel="Kalan" Style="text-align:right">@context.lKalan</MudTd>
         <MudTd DataLabel="Vade">
-            @if (@context.dteVadeTarihi != null)
-            {
-                try
+            @{
+                if (@context.dteVadeTarihi != null)
                 {
-                    var date = DateTime.Parse(@context.dteVadeTarihi);
-                    @date.ToString("dd.MM.yyyy")
-                }
-                catch
-                {
-                    @context.dteVadeTarihi
+                    try
+                    {
+                        var date = DateTime.ParseExact(@context.dteVadeTarihi, 
+                            new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
+                            System.Globalization.CultureInfo.InvariantCulture, 
+                            System.Globalization.DateTimeStyles.None);
+                        @date.ToString("dd.MM.yyyy")
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            var date = DateTime.Parse(@context.dteVadeTarihi);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.dteVadeTarihi
+                        }
+                    }
                 }
             }
         </MudTd>

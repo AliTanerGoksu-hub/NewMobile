@@ -90,16 +90,29 @@
         <MudTd DataLabel="Müşteri">@context.sMusteriAdi</MudTd>
         <MudTd DataLabel="Satıcı">@context.satici</MudTd>
         <MudTd DataLabel="Tarih">
-            @if (@context.dteTarih != null)
-            {
-                try
+            @{
+                if (@context.dteTarih != null)
                 {
-                    var date = DateTime.Parse(@context.dteTarih);
-                    @date.ToString("dd.MM.yyyy")
-                }
-                catch
-                {
-                    @context.dteTarih
+                    try
+                    {
+                        var date = DateTime.ParseExact(@context.dteTarih, 
+                            new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
+                            System.Globalization.CultureInfo.InvariantCulture, 
+                            System.Globalization.DateTimeStyles.None);
+                        @date.ToString("dd.MM.yyyy")
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            var date = DateTime.Parse(@context.dteTarih);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.dteTarih
+                        }
+                    }
                 }
             }
         </MudTd>

@@ -62,16 +62,30 @@
         <MudTd DataLabel="Bekleyen" Style="text-align:right">@context.Bekleyen.ToString("N2")</MudTd>
         <MudTd DataLabel="Sipariş" Style="text-align:right">@context.siparis.ToString("N2")</MudTd>
         <MudTd DataLabel="Son Alış Tarihi">
-            @if (@context.sonAlisTarihi != null)
-            {
-                try
+            @{
+                if (@context.sonAlisTarihi != null)
                 {
-                    var date = DateTime.Parse(@context.sonAlisTarihi);
-                    @date.ToString("dd.MM.yyyy")
-                }
-                catch
-                {
-                    @context.sonAlisTarihi
+                    try
+                    {
+                        // Amerikan formatında parse et
+                        var date = DateTime.ParseExact(@context.sonAlisTarihi, 
+                            new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
+                            System.Globalization.CultureInfo.InvariantCulture, 
+                            System.Globalization.DateTimeStyles.None);
+                        @date.ToString("dd.MM.yyyy")
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            var date = DateTime.Parse(@context.sonAlisTarihi);
+                            @date.ToString("dd.MM.yyyy")
+                        }
+                        catch
+                        {
+                            @context.sonAlisTarihi
+                        }
+                    }
                 }
             }
         </MudTd>
