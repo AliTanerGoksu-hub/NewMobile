@@ -83,12 +83,9 @@ public partial class BarcodeReaderComponent : ContentPage, INotifyPropertyChange
 
     private void TorchButton_Clicked(object sender, EventArgs e)
     {
-        string openLightIcon = "\uD83D\uDD26";
-        string dimLightIcon = "\uD83D\uDEAB";
-
         _isTorchOn = !_isTorchOn;
         barcodeScanner.TorchOn = _isTorchOn;
-        torchButton.Text = _isTorchOn ? openLightIcon : dimLightIcon;
+        torchButton.Text = _isTorchOn ? "🔦 Açık" : "💡 Işık";
     }
 
     private async void CloseButton_Clicked(object sender, EventArgs e)
