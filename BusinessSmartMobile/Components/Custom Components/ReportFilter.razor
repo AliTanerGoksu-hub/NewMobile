@@ -97,6 +97,13 @@
         if (FilterOptions.ShowStore)
         {
             (Stores, _errorMessage) = await StockService.GetWarehouse();
+            
+            // Eğer Filter.Store boşsa ve Stores listesi varsa, ilk depoyu seç
+            if (string.IsNullOrEmpty(Filter.Store) && Stores != null && Stores.Any())
+            {
+                Filter.Store = Stores.First().sDepo;
+                Console.WriteLine($"[ReportFilter] Store boş, ilk depo seçildi: {Filter.Store}");
+            }
         }
         if (FilterOptions.ShowClass)
         {
