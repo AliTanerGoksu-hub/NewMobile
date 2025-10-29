@@ -6,7 +6,7 @@
 @inject AuthService _authService
 @inject NavigationManager Navigation
 
-<!-- Modern Page Header -->
+
 <div class="page-header fade-in-down" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin-top: 0; padding-top: 16px;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
@@ -52,7 +52,7 @@
                            OnClick="OpenBarcodeScanner" />
         </MudStack>
 
-        <!-- Stok kodu, stok adı ve buton aynı satır -->
+       
         <MudStack Row Spacing="2">
             <MudTextField @bind-Value="StokKodu"
                           Label="Stok Kodu"
@@ -92,7 +92,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        sFiyatTipi = _authService.Auth?.sAktifFiyatTipi ?? "1"; // Varsayılan değer ekledim
+        sFiyatTipi = _authService.Auth?.sAktifFiyatTipi ?? "1"; 
     }
 
     private async Task SearchBarcode(KeyboardEventArgs e)

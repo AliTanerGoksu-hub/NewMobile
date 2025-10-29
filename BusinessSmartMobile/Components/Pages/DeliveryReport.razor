@@ -8,7 +8,7 @@
 @inject AuthService _authService
 @using System.Globalization;
 
-<!-- Modern Page Header -->
+
 <div class="page-header fade-in-down" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding-top: 16px; margin-top: 0;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
@@ -112,7 +112,7 @@
                 {
                     try
                     {
-                        // Amerikan formatında parse et
+                        
                         var date = DateTime.ParseExact(@context.dteSiparisTarihi, 
                             new[] { "M/d/yyyy HH:mm:ss", "M/d/yyyy", "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy" }, 
                             System.Globalization.CultureInfo.InvariantCulture, 
@@ -163,7 +163,7 @@
 }
 
 @code {
-    //private IEnumerable<TbFirma> Elements = Enumerable.Empty<TbFirma>();
+    
     private List<TbDeliveryReport> list = new List<TbDeliveryReport>();
     private string apiMessage = string.Empty;
     private TbDeliveryReport filteredCheque = new TbDeliveryReport();
@@ -186,7 +186,7 @@
         sSaticiRumuzu = _authService.Auth?.sSaticiRumuzu ?? "";
         personelKodu = _authService.Auth?.PERSONELKODU ?? "";
         
-        // Debug için
+       
         Console.WriteLine($"[DeliveryReport] Kullanıcı deposu: {sDepo}");
         Console.WriteLine($"[DeliveryReport] Satıcı rumuzu: {sSaticiRumuzu}");
         Console.WriteLine($"[DeliveryReport] Personel kodu: {personelKodu}");
@@ -309,7 +309,7 @@
                 return;
             }
 
-            // Ekranda görünen kolonları tanımla
+          
             var columns = new Dictionary<string, string>
             {
                 { "dteSiparisTarihi", "Tarih" },

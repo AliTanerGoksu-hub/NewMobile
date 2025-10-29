@@ -314,33 +314,13 @@
         if (CatalogService.SelectedStocks?.Any() == true)
         {
             AddStockFromCatalog(CatalogService.SelectedStocks);
-            CatalogService.SelectedStocks.Clear(); // listeyi boşalt istersen
+            CatalogService.SelectedStocks.Clear(); 
         }
-        //await LoadComponentValues();
-        //try
-        //{
-        //    _loading = true;
-        //    _error = false;
-
-        //    if (!string.IsNullOrEmpty(_errorMessage))
-        //    {
-        //        _error = true;
-        //    }
-        //}
-        //catch (Exception ex)
-        //{
-        //    _error = true;
-        //    _errorMessage = $"Hata oluştu: {ex.Message}";
-        //}
-        //finally
-        //{
-        //    _loading = false;
-        //    StateHasChanged();
-        //}
+       
     }
     private void GoBackToCatalog()
     {
-        //CatalogService.SelectedStocks = SecilenUrunler.
+       
 
 
         foreach (var stock in SecilenUrunler)

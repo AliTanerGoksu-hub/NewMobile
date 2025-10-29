@@ -7,8 +7,7 @@
 @inject NavigationManager Navigation
 @inject ISnackbar Snackbar
 
-<!-- Modern Page Header -->
-<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding-top: 16px; margin-top: 0; position: sticky; top: 64px; z-index: 1000;">
+<div class="page-header fade-in-down" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 0; padding-top: 0; position: sticky; top: 0; z-index: 1000;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex justify-space-between align-center">
             <div class="fade-in-left delay-1" style="display: flex; align-items: center; gap: 12px;">
@@ -28,27 +27,13 @@
                     </MudText>
                 </div>
             </div>
-            <div class="fade-in-right delay-2">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Success"
-                           StartIcon="@Icons.Material.Filled.ShoppingCart"
-                           Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); 
-                                  box-shadow: 0 4px 16px rgba(17, 153, 142, 0.4); 
-                                  color: white; 
-                                  font-weight: 600;
-                                  border-radius: 12px;
-                                  text-transform: none;"
-                           Size="Size.Large"
-                           OnClick="@(() => GoToOrders())">
-                    Tamamla
-                </MudButton>
-            </div>
+           
         </div>
     </div>
 </div>
 
 <MudContainer MaxWidth="MaxWidth.Large" Style="padding-top: 8px;">
-    <!-- Search Bar with Animation -->
+   
     <div class="fade-in-up delay-1" style="position: sticky; top: 64px; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 12px 0; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <MudTextField Label="Ürün ara..."
                       @bind-Value="searchTerm"
@@ -64,8 +49,8 @@
         @foreach (var item in catalogList)
         {
             <MudItem xs="6" sm="4" md="3" Class="scale-in">
-                <MudCard Class="modern-card hover-lift-smooth position-relative" 
-                         Style="height: 100%; cursor: pointer; overflow: hidden;"
+                <MudCard class="modern-card hover-lift-smooth position-relative" 
+                         style="height: 100%; cursor: pointer; overflow: hidden;"
                          @onclick="() => OpenImageDialog(item.nStokID)">
                     <div style="position: relative; overflow: hidden; height: 200px; background: #f8f9fa;">
                         <MudCardMedia Image="@(!string.IsNullOrWhiteSpace(item.ImageUrl) ? item.ImageUrl : "/images/placeholder.png")" 
@@ -85,7 +70,7 @@
                             @item.sAciklama
                         </MudText>
                         <MudText Typo="Typo.h6" Style="color: #667eea; font-weight: 600; margin-top: 8px;">
-                            @item.lFiyat1.ToString("N0") ₺
+                            ₺@item.lFiyat1.ToString("N2")
                         </MudText>
                         <div style="display: flex; gap: 8px; margin-top: 8px;">
                             <div class="badge-pill" style="@((item.lMevcut == 0) ? "background: #fee; color: #c53030;" : "background: #e0e7ff; color: #4c51bf;")">
@@ -117,20 +102,27 @@
     }
 </MudContainer>
 
-<!-- TAMAMLA BUTONU - MudContainer DIŞINDA - SABİT POZİSYON -->
-<div style="position: fixed !important; 
-            right: 20px !important; 
-            bottom: 20px !important; 
-            z-index: 9999 !important;">
-    <MudFab Icon="@Icons.Material.Filled.ShoppingCart"
-            Color="Color.Success"
-            Size="Size.Large"
-            Label="Tamamla"
-            Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important; 
-                   box-shadow: 0 8px 24px rgba(17, 153, 142, 0.6) !important;
-                   color: white !important;
-                   font-weight: 600 !important;"
-            OnClick="@(() => GoToOrders())" />
+
+<div id="floatingCartHost"
+     class="floating-cart-right"
+     @onclick:stopPropagation="true"
+     @onmousedown:stopPropagation="true"
+     @onmouseup:stopPropagation="true"
+     @onpointerdown:stopPropagation="true"
+     @onpointerup:stopPropagation="true"
+     @ontouchstart:stopPropagation="true"
+     @ontouchend:stopPropagation="true"
+     @onclick:preventDefault="true">
+    <div class="floating-cart-inner">
+        <MudFab Icon="@Icons.Material.Filled.ShoppingCart"
+                Color="Color.Success"
+                Size="Size.Large"
+                Label="Tamamla"
+                Style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+                       box-shadow: 0 8px 24px rgba(17,153,142,.6);
+                       color: white; font-weight:600;"
+                OnClick="@GoToOrders" />
+    </div>
 </div>
 
 @code {
@@ -188,7 +180,9 @@
     {
         if (firstRender)
         {
+            
             await JS.InvokeVoidAsync("attachScrollListener", DotNetObjectReference.Create(this));
+            await JS.InvokeVoidAsync("moveElementToBody", "#floatingCartHost");
         }
     }
 
@@ -214,11 +208,8 @@
 
     private void GoToOrders()
     {
-        // Artık service zaten seçilenleri tutuyor,
-        // tekrar eklemeye gerek yok.
         Navigation.NavigateTo("/newOrder?from=catalog");
     }
-
 
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
@@ -247,6 +238,7 @@
 }
 
 <script>
+    
     window.attachScrollListener = function (dotnetHelper) {
         let timeoutId;
         window.addEventListener('scroll', () => {
@@ -258,34 +250,63 @@
             }, 300);
         });
     };
+
+    
+    window.moveElementToBody = function (selector) {
+        try {
+            const el = document.querySelector(selector);
+            if (el && el.parentElement !== document.body) {
+                document.body.appendChild(el);
+            }
+        } catch (e) {
+            console.warn('moveElementToBody error:', e);
+        }
+    };
 </script>
 
 <style>
-    .text-red {
-        color: red !important;
-    }
+    .text-red { color: red !important; }
+    .font-weight-bold { font-weight: bold !important; }
 
-    .font-weight-bold {
-        font-weight: bold !important;
-    }
-
-    /* Pulse Animation for Button */
+    
     @@keyframes pulse-ring {
-        0% {
-            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6);
-        }
-        50% {
-            box-shadow: 0 8px 32px rgba(239, 68, 68, 0.9);
-        }
-        100% {
-            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6);
-        }
+        0%   { box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6); }
+        50%  { box-shadow: 0 8px 32px rgba(239, 68, 68, 0.9); }
+        100% { box-shadow: 0 8px 24px rgba(239, 68, 68, 0.6); }
+    }
+    .pulse { animation: pulse-ring 2s ease-in-out infinite !important; }
+
+   
+    .floating-cart-right{
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2147483647;   
+        width: max-content;
+        isolation: isolate;    
+        contain: paint;        
+        pointer-events: none; 
+        -webkit-transform: translateZ(0); 
+        will-change: transform;
+    }
+   
+    .floating-cart-right .floating-cart-inner{
+        pointer-events: auto;
+    }
+    .floating-cart-right button,
+    .floating-cart-right .mud-fab,
+    .floating-cart-right .mud-button-root{
+        pointer-events: auto;
+        touch-action: manipulation; 
     }
 
-    .pulse {
-        animation: pulse-ring 2s ease-in-out infinite !important;
+    
+    @@media (max-width: 768px){
+        .floating-cart-right{
+            top: auto;
+            bottom: 20px;
+            transform: none;
+        }
     }
 </style>
-
-<!-- Eski floating buton kaldırıldı - Şimdi header'da Tamamla butonu var -->
-

@@ -3,7 +3,7 @@
 @inject NavigationManager Navigation
 @inject ISnackbar Snackbar
 
-<!-- Modern Page Header -->
+
 <div class="page-header fade-in-down" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding-top: 16px; margin-top: 0;">
     <div class="page-header-content" style="max-width: 100%; padding: 0 16px;">
         <div class="d-flex align-center" style="gap: 12px;">
@@ -58,7 +58,7 @@
         try
         {
             _loading = true;
-            // Load data logic here
+            
             await Task.Delay(100);
             _loading = false;
         }

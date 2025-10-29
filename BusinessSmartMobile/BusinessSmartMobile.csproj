@@ -54,7 +54,9 @@
 		<Debugger>Xamarin</Debugger>
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 		<!-- Store'a derleme yapmadığımız için signing devre dışı -->
-		<AndroidKeyStore>False</AndroidKeyStore>
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningStorePass>123456</AndroidSigningStorePass>
+		<AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
 		<!-- GÜVENLİK: Store'a yayınlarken True yapın ve şifreleri environment variable'dan okuyun -->
 		<!-- Local development için: export ANDROID_KEYSTORE_PASS=your_password -->
 		<!--
@@ -68,12 +70,14 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
 		<Debugger>Xamarin</Debugger>
-		<AndroidPackageFormat>aab</AndroidPackageFormat>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<AndroidUseAapt2>True</AndroidUseAapt2>
 		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
 		<RunAOTCompilation>False</RunAOTCompilation>
 		<!-- Store'a derleme yapmadığımız için signing devre dışı -->
-		<AndroidKeyStore>False</AndroidKeyStore>
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningStorePass>123456</AndroidSigningStorePass>
+		<AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
 		<!-- PRODUCTION: Store'a yayınlarken True yapın ve environment variable'dan okuyun -->
 		<!-- Google Play Store için AAB format zorunlu -->
 		<!--
@@ -98,12 +102,16 @@
 	  <MtouchLink>Full</MtouchLink>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
+	  <CodesignKey>Apple Development: Created via API (93M4NB343B)</CodesignKey>
+	  <CodesignProvision>VS: com.barkodyazilim.bsm Development</CodesignProvision>
+	</PropertyGroup>
+
 	<!-- Duplicate Android PropertyGroup sections removed - consolidated above -->
 
 	<ItemGroup>
 		<!-- App Icon - Android çalışıyor, iOS için zorla -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" 
-		          BaseSize="1024,1024" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="1024,1024" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#ffffff" BaseSize="128,128" />
